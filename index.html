@@ -93,14 +93,14 @@
                         <span class="text-neutral-300">Missed appointments per week:</span>
                         <span class="text-white font-bold" x-text="count"></span>
                     </div>
-                    <input type="range" min="3" max="50" x-model="count" class="w-full accent-emerald-500 bg-neutral-800 h-1.5 rounded-lg cursor-pointer">
+                    <input type="range" min="0" max="100" x-model="count" class="w-full accent-emerald-500 bg-neutral-800 h-1.5 rounded-lg cursor-pointer">
                 </div>
                 <div>
                     <div class="flex justify-between items-center mb-2 text-sm font-mono">
                         <span class="text-neutral-300">Average value per appointment:</span>
                         <span class="text-white font-bold" x-text="'$' + ticket"></span>
                     </div>
-                    <input type="range" min="50" max="1000" step="25" x-model="ticket" class="w-full accent-emerald-500 bg-neutral-800 h-1.5 rounded-lg cursor-pointer">
+                    <input type="range" min="0" max="1000" step="25" x-model="ticket" class="w-full accent-emerald-500 bg-neutral-800 h-1.5 rounded-lg cursor-pointer">
                 </div>
             </div>
 
