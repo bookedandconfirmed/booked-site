@@ -55,7 +55,7 @@
                 <span class="font-bold tracking-tight text-sm uppercase font-mono">Booked & Confirmed</span>
             </div>
             <div class="flex items-center space-x-4">
-                <a href="#services" class="text-xs text-neutral-400 hover:text-white hidden sm:inline transition">Services</a>
+                <a href="#simulator" class="text-xs text-neutral-400 hover:text-white hidden sm:inline transition">Calculator</a>
                 <a href="#pricing" class="text-xs text-neutral-400 hover:text-white hidden sm:inline transition">Pricing</a>
                 <a href="#access" class="bg-white text-black font-semibold text-xs px-4 py-2 rounded-lg hover:bg-neutral-200 transition">
                     Get Started
@@ -164,33 +164,6 @@
                     <div class="text-[11px] text-neutral-500">Founder, Booked & Confirmed</div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Dynamic Services Section (Pulled from Supabase) -->
-    <section id="services" class="py-20 px-6 max-w-5xl mx-auto" x-data="{ servicesList: [] }" x-init="
-      async function loadServices() {
-        let { data, error } = await supabase.from('services').select('*');
-        if (!error) { servicesList = data; }
-      }
-      loadServices();
-    ">
-        <div class="text-center mb-12">
-            <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Our Offerings</span>
-            <h2 class="text-3xl sm:text-4xl font-black mt-1">Available Services</h2>
-            <p class="text-sm text-neutral-400 mt-2">Live services pulled straight from your database.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <template x-for="service in servicesList" :key="service.id">
-                <div class="brutal-card p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="font-bold text-lg mb-2 text-white" x-text="service.name"></h3>
-                        <p class="text-sm text-neutral-400 mb-4" x-text="service.description"></p>
-                    </div>
-                    <div class="text-emerald-400 font-mono font-bold" x-text="'$' + service.price"></div>
-                </div>
-            </template>
         </div>
     </section>
 
