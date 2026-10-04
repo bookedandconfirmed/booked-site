@@ -44,6 +44,17 @@
   const supabaseKey = 'sb_publishable_HOBwf5OgyT8dTAo9y92m5w_k56fp2ZT';
   const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 </script>
+    <script>
+  async function fetchServices() {
+    let { data, error } = await supabase.from('services').select('*');
+    if (error) {
+      console.error('Error fetching services:', error);
+    } else {
+      console.log('Fetched services data:', data);
+    }
+  }
+  fetchServices();
+</script>
 </head>
 <body class="bg-[#0A0A0A] min-h-screen text-[#EDEDED] noise selection:bg-white selection:text-black" x-data="{ activeModal: null }">
 
