@@ -41,6 +41,14 @@
 </head>
 <body class="bg-[#0A0A0A] min-h-screen text-[#EDEDED] noise selection:bg-white selection:text-black" x-data="{ activeModal: null, selectedTier: 'Pro ($99/mo)', selectedUrl: 'https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01' }">
 
+    <!-- Scroll-to-top fix script -->
+    <script>
+        if (window.location.hash) {
+            history.replaceState(null, null, window.location.pathname + window.location.search);
+            window.scrollTo(0, 0);
+        }
+    </script>
+
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#222222]">
         <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
