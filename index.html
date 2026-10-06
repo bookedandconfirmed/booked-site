@@ -39,7 +39,7 @@
         .noise { background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 0); background-size: 24px 24px; }
     </style>
 </head>
-<body class="bg-[#0A0A0A] min-h-screen text-[#EDEDED] noise selection:bg-white selection:text-black" x-data="{ activeModal: null }">
+<body class="bg-[#0A0A0A] min-h-screen text-[#EDEDED] noise selection:bg-white selection:text-black" x-data="{ activeModal: null, selectedTier: null, selectedUrl: '' }">
 
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#222222]">
@@ -161,7 +161,7 @@
         </div>
     </section>
 
-    <!-- Competitive Pricing Section (Direct to Stripe Links) -->
+    <!-- Competitive Pricing Section -->
     <section id="pricing" class="py-20 px-6 max-w-5xl mx-auto">
         <div class="text-center mb-12">
             <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Pricing</span>
@@ -182,9 +182,9 @@
                         <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Basic calendar sync</li>
                     </ul>
                 </div>
-                <a href="https://buy.stripe.com/fZu9ATclFcYT9bCdbsgQE00" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition block">
+                <button @click="selectedTier = 'Starter ($49/mo)'; selectedUrl = 'https://buy.stripe.com/fZu9ATclFcYT9bCdbsgQE00'; activeModal = 'checkout'" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition cursor-pointer">
                     Select Starter ($49)
-                </a>
+                </button>
             </div>
 
             <!-- Pro Tier ($99) -->
@@ -203,9 +203,9 @@
                         <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Priority support</li>
                     </ul>
                 </div>
-                <a href="https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01" class="w-full py-3 bg-white hover:bg-neutral-200 text-black font-bold rounded-xl text-center text-xs transition shadow-lg block">
+                <button @click="selectedTier = 'Pro ($99/mo)'; selectedUrl = 'https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01'; activeModal = 'checkout'" class="w-full py-3 bg-white hover:bg-neutral-200 text-black font-bold rounded-xl text-center text-xs transition shadow-lg cursor-pointer">
                     Select Pro ($99)
-                </a>
+                </button>
             </div>
 
             <!-- Business Tier ($199) -->
@@ -220,18 +220,49 @@
                         <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Custom reminders & branding</li>
                     </ul>
                 </div>
-                <a href="https://buy.stripe.com/7sY28rdpJ7Ez3Ri1sKgQE02" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition block">
+                <button @click="selectedTier = 'Business ($199/mo)'; selectedUrl = 'https://buy.stripe.com/7sY28rdpJ7Ez3Ri1sKgQE02'; activeModal = 'checkout'" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition cursor-pointer">
                     Select Business ($199)
-                </a>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Modal Popups -->
+    <!-- Modal Popups (Checkout Intake Form, TOS, Privacy) -->
     <div x-show="activeModal !== null" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6 backdrop-blur-sm" x-transition.opacity>
-        <div class="brutal-card p-6 sm:p-8 rounded-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto relative text-left">
-            <button @click="activeModal = null" class="absolute top-4 right-4 text-neutral-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+        <div class="brutal-card p-6 sm:p-8 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto relative text-left">
+            <button @click="activeModal = null" class="absolute top-4 right-4 text-neutral-400 hover:text-white text-lg cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
             
+            <!-- Checkout Form Modal -->
+            <template x-if="activeModal === 'checkout'">
+                <div>
+                    <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest block mb-1">Secure Activation</span>
+                    <h3 class="text-xl font-black mb-2">Enter Your Account Details</h3>
+                    <p class="text-xs text-neutral-400 mb-6">You selected <span class="text-white font-bold font-mono" x-text="selectedTier"></span>. Tell us who to set your workspace up for before heading to checkout.</p>
+                    
+                    <form @submit.prevent="window.location.href = selectedUrl" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-neutral-300 mb-1">Your Full Name</label>
+                            <input type="text" required placeholder="Avery Lay" class="w-full bg-neutral-900 border border-[#222222] rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-neutral-300 mb-1">Business Name</label>
+                            <input type="text" required placeholder="Avery's Studio" class="w-full bg-neutral-900 border border-[#222222] rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono uppercase text-neutral-300 mb-1">Email Address</label>
+                            <input type="email" required placeholder="avery@example.com" class="w-full bg-neutral-900 border border-[#222222] rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div class="pt-4">
+                            <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider transition flex items-center justify-center space-x-2 cursor-pointer">
+                                <span>Continue to Payment</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </template>
+
+            <!-- Terms of Service Modal -->
             <template x-if="activeModal === 'tos'">
                 <div>
                     <h3 class="text-xl font-black mb-4 font-mono text-emerald-400">Terms of Service</h3>
@@ -240,9 +271,13 @@
                         <p><strong>2. Ownership:</strong> You retain full ownership of all data, client rosters, and appointment records processed through your account.</p>
                         <p><strong>3. Billing & Cancellation:</strong> Subscriptions bill monthly. You may cancel at any time directly through your dashboard or by notifying support to halt future billing.</p>
                     </div>
+                    <div class="mt-6 pt-4 border-t border-[#222222] text-right">
+                        <button @click="activeModal = null" class="bg-white text-black font-bold text-xs px-5 py-2.5 rounded-lg hover:bg-neutral-200 transition cursor-pointer">Close</button>
+                    </div>
                 </div>
             </template>
 
+            <!-- Privacy Policy Modal -->
             <template x-if="activeModal === 'privacy'">
                 <div>
                     <h3 class="text-xl font-black mb-4 font-mono text-emerald-400">Privacy Policy</h3>
@@ -251,12 +286,11 @@
                         <p><strong>2. No Data Selling:</strong> We do not sell, rent, or trade your private business data or client contact lists to external advertisers.</p>
                         <p><strong>3. Compliance:</strong> We adhere to standard data handling guidelines and maintain transparent opt-out practices for messaging.</p>
                     </div>
+                    <div class="mt-6 pt-4 border-t border-[#222222] text-right">
+                        <button @click="activeModal = null" class="bg-white text-black font-bold text-xs px-5 py-2.5 rounded-lg hover:bg-neutral-200 transition cursor-pointer">Close</button>
+                    </div>
                 </div>
             </template>
-
-            <div class="mt-6 pt-4 border-t border-[#222222] text-right">
-                <button @click="activeModal = null" class="bg-white text-black font-bold text-xs px-5 py-2.5 rounded-lg hover:bg-neutral-200 transition">Close</button>
-            </div>
         </div>
     </div>
 
@@ -266,8 +300,8 @@
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>&copy; Booked & Confirmed. All rights reserved. Cancel anytime.</div>
                 <div class="flex items-center space-x-6">
-                    <button @click="activeModal = 'tos'" class="hover:text-white transition">Terms of Service</button>
-                    <button @click="activeModal = 'privacy'" class="hover:text-white transition">Privacy Policy</button>
+                    <button @click="activeModal = 'tos'" class="hover:text-white transition cursor-pointer">Terms of Service</button>
+                    <button @click="activeModal = 'privacy'" class="hover:text-white transition cursor-pointer">Privacy Policy</button>
                 </div>
             </div>
             <div class="text-[10px] text-neutral-600 border-t border-[#1a1a1a] pt-4 leading-relaxed">
