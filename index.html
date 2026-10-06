@@ -38,17 +38,8 @@
         .brutal-card:hover { border-color: #444444; }
         .noise { background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 0); background-size: 24px 24px; }
     </style>
-    <!-- Supabase CDN v2 -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        if (typeof window.supabaseClient === 'undefined') {
-            const supabaseUrl = 'https://gauwcvbfdyqdckkgpcaj.supabase.co';
-            const supabaseKey = 'sb_publishable_HOBwf5OgyT8dTAo9y92m5w_k56fp2ZT';
-            window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-        }
-    </script>
 </head>
-<body class="bg-[#0A0A0A] min-h-screen text-[#EDEDED] noise selection:bg-white selection:text-black" x-data="{ activeModal: null, selectedPlan: 'Please select a plan' }">
+<body class="bg-[#0A0A0A] min-h-screen text-[#EDEDED] noise selection:bg-white selection:text-black" x-data="{ activeModal: null }">
 
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#222222]">
@@ -57,4 +48,125 @@
                 <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
                 <span class="font-bold tracking-tight text-sm uppercase font-mono">Booked & Confirmed</span>
             </div>
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-6">
+                <a href="#simulator" class="text-xs text-neutral-400 hover:text-white hidden sm:inline transition">Calculator</a>
+                <a href="#protocol" class="text-xs text-neutral-400 hover:text-white hidden sm:inline transition">Features</a>
+                <a href="#pricing" class="bg-white text-black font-semibold text-xs px-4 py-2 rounded-lg hover:bg-neutral-200 transition">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 max-w-4xl mx-auto text-center">
+        <h1 class="text-5xl sm:text-7xl font-black tracking-tight leading-[1.05] mb-6">
+            Booked & Confirmed makes sure your clients <span class="underline decoration-emerald-500 decoration-wavy decoration-2 underline-offset-8">actually show up.</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl text-neutral-400 max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
+            Stop losing hours chasing ghosts, reschedules, and no-shows. We systematically lock down your calendar so every slot pays out.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="#pricing" class="w-full sm:w-auto bg-white text-black font-bold px-8 py-4 rounded-xl hover:bg-neutral-200 transition text-sm flex items-center justify-center space-x-2 shadow-2xl">
+                <span>Get Started</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#simulator" class="w-full sm:w-auto brutal-card text-white font-medium px-8 py-4 rounded-xl text-sm flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-calculator text-neutral-400"></i>
+                <span>Calculate Lost Revenue</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Live Calculator -->
+    <section id="simulator" class="py-16 px-6 max-w-3xl mx-auto" x-data="{ count: 12, ticket: 175 }">
+        <div class="brutal-card p-8 sm:p-12 rounded-2xl relative">
+            <div class="absolute top-4 right-4 text-xs font-mono text-neutral-500 uppercase">Live Calculator</div>
+            
+            <h2 class="text-2xl font-bold tracking-tight mb-2">How much are no-shows costing you?</h2>
+            <p class="text-sm text-neutral-400 mb-8">Move the sliders to see what Booked & Confirmed recovers for your business every month.</p>
+
+            <div class="space-y-6 mb-8">
+                <div>
+                    <div class="flex justify-between items-center mb-2 text-sm font-mono">
+                        <span class="text-neutral-300">Missed appointments per week:</span>
+                        <span class="text-white font-bold" x-text="count"></span>
+                    </div>
+                    <input type="range" min="0" max="100" x-model="count" class="w-full accent-emerald-500 bg-neutral-800 h-1.5 rounded-lg cursor-pointer">
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2 text-sm font-mono">
+                        <span class="text-neutral-300">Average value per appointment:</span>
+                        <span class="text-white font-bold" x-text="'$' + ticket"></span>
+                    </div>
+                    <input type="range" min="0" max="1000" step="25" x-model="ticket" class="w-full accent-emerald-500 bg-neutral-800 h-1.5 rounded-lg cursor-pointer">
+                </div>
+            </div>
+
+            <div class="bg-black/60 border border-[#222222] p-6 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-mono uppercase text-neutral-400 block mb-1">Monthly Revenue Saved</span>
+                    <span class="text-3xl sm:text-4xl font-black text-emerald-400 font-mono" x-text=" '$' + (count * ticket * 4).toLocaleString() "></span>
+                </div>
+                <a href="#pricing" class="bg-emerald-500 text-black font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-lg hover:bg-emerald-400 transition whitespace-nowrap">
+                    Stop The Leak
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Protocol Section -->
+    <section id="protocol" class="py-16 px-6 max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">The Protocol</span>
+            <h2 class="text-3xl font-black mt-1">How We Lock Your Schedule</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="brutal-card p-6 rounded-xl">
+                <span class="text-xs font-mono text-emerald-400 mb-3 block">01 / AUDIT</span>
+                <h3 class="font-bold text-lg mb-2">Instant Outreach</h3>
+                <p class="text-sm text-neutral-400">Clients get personalized text & email touchpoints immediately upon booking.</p>
+            </div>
+            <div class="brutal-card p-6 rounded-xl">
+                <span class="text-xs font-mono text-emerald-400 mb-3 block">02 / CONFIRM</span>
+                <h3 class="font-bold text-lg mb-2">Frictionless Lock-In</h3>
+                <p class="text-sm text-neutral-400">Our system forces explicit confirmation codes or interactive replies.</p>
+            </div>
+            <div class="brutal-card p-6 rounded-xl">
+                <span class="text-xs font-mono text-emerald-400 mb-3 block">03 / ZERO LOSS</span>
+                <h3 class="font-bold text-lg mb-2">Backfill Automation</h3>
+                <p class="text-sm text-neutral-400">If someone cancels, standby waitlist leads are instantly slotted in.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classy Founder Testimonial Section -->
+    <section class="py-16 px-6 max-w-3xl mx-auto">
+        <div class="brutal-card p-8 sm:p-10 rounded-2xl border-l-2 border-emerald-500 relative bg-gradient-to-r from-emerald-950/10 to-transparent">
+            <div class="absolute top-6 right-6 text-neutral-700 text-3xl font-serif">“</div>
+            <p class="text-sm sm:text-base text-neutral-300 italic leading-relaxed mb-6">
+                "We built Booked & Confirmed because losing track of appointments and chasing down clients shouldn't be part of running a business. Having a reliable, bulletproof automated workflow changes everything."
+            </p>
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs font-bold font-mono">
+                    AL
+                </div>
+                <div>
+                    <div class="text-xs font-bold text-white uppercase tracking-wider font-mono">Avery Lay</div>
+                    <div class="text-[11px] text-neutral-500">Founder, Booked & Confirmed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Pricing Section (Direct to Stripe Links) -->
+    <section id="pricing" class="py-20 px-6 max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Pricing</span>
+            <h2 class="text-3xl sm:text-4xl font-black mt-1">Simple, Affordable Plans</h2>
+            <p class="text-sm text-neutral-400 mt-2">Fair, accessible pricing designed to pay for itself on day one. Cancel anytime.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:
