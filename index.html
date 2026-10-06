@@ -33,7 +33,7 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: #EDEDED; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: #EDEDED; overflow-x: hidden; scroll-behavior: smooth; }
         .brutal-card { background: #141414; border: 1px solid #222222; transition: all 0.2s ease; }
         .brutal-card:hover { border-color: #444444; }
         .noise { background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 0); background-size: 24px 24px; }
@@ -51,7 +51,7 @@
             <div class="flex items-center space-x-6">
                 <a href="#simulator" class="text-xs text-neutral-400 hover:text-white hidden sm:inline transition">Calculator</a>
                 <a href="#protocol" class="text-xs text-neutral-400 hover:text-white hidden sm:inline transition">Features</a>
-                <a href="#onboarding" class="bg-white text-black font-semibold text-xs px-4 py-2 rounded-lg hover:bg-neutral-200 transition">
+                <a href="#pricing" class="bg-white text-black font-semibold text-xs px-4 py-2 rounded-lg hover:bg-neutral-200 transition">
                     Get Started
                 </a>
             </div>
@@ -69,7 +69,7 @@
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a href="#onboarding" class="w-full sm:w-auto bg-white text-black font-bold px-8 py-4 rounded-xl hover:bg-neutral-200 transition text-sm flex items-center justify-center space-x-2 shadow-2xl">
+            <a href="#pricing" class="w-full sm:w-auto bg-white text-black font-bold px-8 py-4 rounded-xl hover:bg-neutral-200 transition text-sm flex items-center justify-center space-x-2 shadow-2xl">
                 <span>Get Started</span>
                 <i class="fa-solid fa-arrow-right text-xs"></i>
             </a>
@@ -110,7 +110,7 @@
                     <span class="text-xs font-mono uppercase text-neutral-400 block mb-1">Monthly Revenue Saved</span>
                     <span class="text-3xl sm:text-4xl font-black text-emerald-400 font-mono" x-text=" '$' + (count * ticket * 4).toLocaleString() "></span>
                 </div>
-                <a href="#onboarding" class="bg-emerald-500 text-black font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-lg hover:bg-emerald-400 transition whitespace-nowrap">
+                <a href="#pricing" class="bg-emerald-500 text-black font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-lg hover:bg-emerald-400 transition whitespace-nowrap">
                     Stop The Leak
                 </a>
             </div>
