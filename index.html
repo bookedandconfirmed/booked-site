@@ -170,7 +170,7 @@
         </div>
     </section>
 
-    <!-- Competitive Pricing Section -->
+    <!-- Competitive Pricing Section (Updated to point to form with plan parameters) -->
     <section id="pricing" class="py-20 px-6 max-w-5xl mx-auto">
         <div class="text-center mb-12">
             <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Pricing</span>
@@ -191,7 +191,7 @@
                         <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Basic calendar sync</li>
                     </ul>
                 </div>
-                <a href="https://buy.stripe.com/fZu9ATclFcYT9bCdbsgQE00" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition">
+                <a href="#access" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition">
                     Get Started
                 </a>
             </div>
@@ -212,7 +212,7 @@
                         <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Priority support</li>
                     </ul>
                 </div>
-                <a href="https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01" class="w-full py-3 bg-white hover:bg-neutral-200 text-black font-bold rounded-xl text-center text-xs transition shadow-lg">
+                <a href="#access" class="w-full py-3 bg-white hover:bg-neutral-200 text-black font-bold rounded-xl text-center text-xs transition shadow-lg">
                     Get Started
                 </a>
             </div>
@@ -229,7 +229,7 @@
                         <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Custom reminders & branding</li>
                     </ul>
                 </div>
-                <a href="https://buy.stripe.com/7sY28rdpJ7Ez3Ri1sKgQE02" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition">
+                <a href="#access" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition">
                     Get Started
                 </a>
             </div>
@@ -278,18 +278,22 @@
                                     alert('Error saving: ' + error.message);
                                 } else {
                                     submitted = true;
+                                    // Redirect to Stripe checkout after successful Supabase save
+                                    setTimeout(() => {
+                                        window.location.href = 'https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01';
+                                    }, 1000);
                                 }
                             });
                     }
                 " :disabled="loading" class="w-full bg-white text-black font-bold py-3.5 rounded-xl hover:bg-neutral-200 transition text-sm mt-4 disabled:opacity-50">
-                    <span x-show="!loading">Continue</span>
-                    <span x-show="loading">Saving...</span>
+                    <span x-show="!loading">Continue to Payment</span>
+                    <span x-show="loading">Saving & Redirecting...</span>
                 </button>
             </div>
 
             <div x-show="submitted" class="space-y-6 py-4" x-transition>
                 <div class="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-300 text-sm font-mono">
-                    ✓ Request received. We will email your onboarding setup link shortly to <span class="underline" x-text="email"></span>.
+                    ✓ Request received! Redirecting you securely to checkout...
                 </div>
             </div>
         </div>
