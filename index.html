@@ -285,7 +285,13 @@
                                 } else {
                                     submitted = true;
                                     setTimeout(() => {
-                                        window.location.href = 'https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01';
+                                        if (selectedPlan.includes('49')) {
+                                            window.location.href = 'https://buy.stripe.com/YOUR_STARTER_STRIPE_LINK';
+                                        } else if (selectedPlan.includes('199')) {
+                                            window.location.href = 'https://buy.stripe.com/YOUR_BUSINESS_STRIPE_LINK';
+                                        } else {
+                                            window.location.href = 'https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01';
+                                        }
                                     }, 1000);
                                 }
                             });
