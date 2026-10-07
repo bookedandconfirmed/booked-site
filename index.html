@@ -47,6 +47,97 @@
         </div>
     </section>
 
+    <!-- Features Section -->
+    <section id="features" class="py-20 border-t border-slate-900 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold tracking-tight mb-4">Engineered for Maximum Retention</h2>
+                <p class="text-slate-400">Every module is built to eliminate friction, secure upfront commitment, and automate your workflow.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-lg mb-6">01</div>
+                    <h3 class="text-xl font-bold mb-3">Instant Lead Sync</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Captures client records immediately upon form submission, ensuring zero lost prospects even prior to payment completion.</p>
+                </div>
+                <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-lg mb-6">02</div>
+                    <h3 class="text-xl font-bold mb-3">Stripe-First Checkout</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Seamlessly transition users from your custom workspace intake into secure, automated payment processing.</p>
+                </div>
+                <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-lg mb-6">03</div>
+                    <h3 class="text-xl font-bold mb-3">Automated Database</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Directly syncs client names, emails, services, and appointment schedules into your centralized master sheets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator Section -->
+    <section id="calculator" class="py-20 bg-slate-900/30 border-t border-slate-900" x-data="{ appointments: 30, value: 150 }">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold tracking-tight mb-3">Calculate Your Recovered Revenue</h2>
+                <p class="text-slate-400 text-sm">See how much revenue you protect by eliminating scheduling drop-offs.</p>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 md:p-12 shadow-xl">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-300 mb-2">Monthly Bookings: <span class="text-indigo-400" x-text="appointments"></span></label>
+                        <input type="range" min="5" max="150" x-model="appointments" class="w-full accent-indigo-600 cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-300 mb-2">Average Service Value ($): <span class="text-indigo-400" x-text="value"></span></label>
+                        <input type="range" min="50" max="500" step="25" x-model="value" class="w-full accent-indigo-600 cursor-pointer">
+                    </div>
+                </div>
+                <div class="bg-indigo-950/40 border border-indigo-500/20 rounded-xl p-6 text-center">
+                    <span class="text-xs uppercase tracking-wider text-indigo-300 font-semibold">Estimated Monthly Protection</span>
+                    <div class="text-4xl md:text-5xl font-black text-white mt-2" x-text="`$${(appointments * value * 0.2).toLocaleString()}`"></div>
+                    <p class="text-slate-400 text-xs mt-2">Based on a standard 20% reduction in unconfirmed bookings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Tiers Section -->
+    <section id="pricing" class="py-20 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-bold tracking-tight mb-4">Transparent, Scalable Tiers</h2>
+                <p class="text-slate-400">Choose the integration architecture that fits your business model.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Starter Plan</h3>
+                        <p class="text-slate-400 text-sm mb-6">Essential lead capture and direct spreadsheet sync.</p>
+                        <div class="text-3xl font-black mb-6">$49<span class="text-sm font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <a href="#signup" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 rounded-xl text-center transition">Select Starter</a>
+                </div>
+                <div class="bg-indigo-950/20 border-2 border-indigo-500/50 rounded-2xl p-8 flex flex-col justify-between relative shadow-xl shadow-indigo-600/10">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">Most Popular</div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Pro Growth Package</h3>
+                        <p class="text-slate-400 text-sm mb-6">Advanced webhook routing, instant sync, and automated recovery.</p>
+                        <div class="text-3xl font-black mb-6">$99<span class="text-sm font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <a href="#signup" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl text-center transition shadow-lg shadow-indigo-600/20">Select Pro</a>
+                </div>
+                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold mb-2">Enterprise Solution</h3>
+                        <p class="text-slate-400 text-sm mb-6">Full white-label domain deployment and custom pipeline scaling.</p>
+                        <div class="text-3xl font-black mb-6">$249<span class="text-sm font-normal text-slate-400">/mo</span></div>
+                    </div>
+                    <a href="#signup" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 rounded-xl text-center transition">Select Enterprise</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Signup & Integration Form Section -->
     <section id="signup" class="py-20 bg-slate-900/50 border-t border-slate-800/80">
         <div class="max-w-xl mx-auto px-6">
@@ -67,9 +158,9 @@
                         <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Service Name / Plan</label>
                         <select x-model="formData.serviceName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition">
                             <option value="" disabled selected>Select your package</option>
-                            <option value="Starter Plan">Starter Plan</option>
-                            <option value="Pro Growth Package">Pro Growth Package</option>
-                            <option value="Enterprise Solution">Enterprise Solution</option>
+                            <option value="Starter Plan">Starter Plan ($49/mo)</option>
+                            <option value="Pro Growth Package">Pro Growth Package ($99/mo)</option>
+                            <option value="Enterprise Solution">Enterprise Solution ($249/mo)</option>
                         </select>
                     </div>
                     <div>
@@ -103,9 +194,9 @@
                 async submitLeadAndRedirect() {
                     this.loading = true;
                     
-                    // Replace with your actual Make.com Webhook URL
-                    const makeWebhookUrl = 'YOUR_MAKE_WEBHOOK_URL_HERE';
-                    // Replace with your actual Stripe Checkout Link
+                    // Your active Make.com Webhook URL is embedded here
+                    const makeWebhookUrl = 'https://hook.us2.make.com/fx2duonl4damej9p4t3wsvr4i5bdenfo';
+                    // Replace with your actual Stripe Checkout Link when ready
                     const stripeCheckoutUrl = 'YOUR_STRIPE_CHECKOUT_LINK_HERE';
 
                     try {
