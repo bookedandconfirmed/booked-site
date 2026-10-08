@@ -144,8 +144,6 @@
     .bubble--biz { align-self: flex-start; background: #1f1f1f; border: 1px solid var(--border); border-bottom-left-radius: .25rem; }
     .bubble--client { align-self: flex-end; background: var(--green); color: #000; font-weight: 600; border-bottom-right-radius: .25rem; }
     .thread-gap { align-self: center; font-family: var(--font-mono); font-size: .65rem; color: var(--faint); margin: .4rem 0; }
-    .thread-who { align-self: flex-start; font-size: .8rem; font-weight: 600; color: #fff; margin-top: .25rem; }
-    .thread-divider { border: 0; border-top: 1px solid var(--border); width: 100%; margin: .9rem 0 .4rem; }
 
     /* ---------- Calculator ---------- */
     .calc { position: relative; padding: 1.5rem; }
@@ -246,10 +244,6 @@
     .signup .btn--green { padding: 1rem 1.5rem; border-radius: .75rem; margin-top: .5rem; }
     .signup-hint { font-size: .75rem; color: var(--faint); text-align: center; margin-top: 1rem; }
 
-    .consent { display: flex; align-items: flex-start; gap: .6rem; margin-bottom: 1.25rem; font-size: .8rem; color: var(--muted); line-height: 1.5; }
-    .consent input { width: 1.1rem; height: 1.1rem; margin-top: .15rem; accent-color: var(--green); flex: none; }
-    .link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--green-light); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-
     /* ---------- Legal dialogs ---------- */
     dialog { padding: 0; width: calc(100% - 3rem); max-width: 32rem; max-height: 85vh; background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 1rem; }
     dialog::backdrop { background: rgba(0,0,0,.8); backdrop-filter: blur(4px); }
@@ -321,21 +315,14 @@
           <h2 id="demo-title">Clients confirm with one reply.</h2>
           <p>Each booking gets a text right away. Clients answer with a single letter, and if someone cancels, the next person on your waitlist is offered the slot automatically.</p>
         </div>
-        <div class="card thread" role="img" aria-label="Two example text conversations. In the first, a client named Jamie confirms an appointment. In the second, a different client named Sam, who is on the waitlist, is offered a slot that another client cancelled.">
-          <span class="thread-label">Example 1: a client confirms</span>
-          <span class="thread-who">Jamie</span>
+        <div class="card thread" role="img" aria-label="Example text conversation: a reminder, the client confirming, and a cancelled slot offered to a waitlisted client.">
+          <span class="thread-label">Example conversation</span>
           <div class="bubble bubble--biz">Hi Jamie, you're booked at Example Studio on Thu at 2:30 PM. Reply C to confirm or R to reschedule.</div>
           <div class="bubble bubble--client">C</div>
           <div class="bubble bubble--biz">Confirmed. See you Thursday!</div>
-
-          <hr class="thread-divider">
-
-          <span class="thread-label">Example 2: a cancelled slot gets refilled</span>
-          <span class="thread-gap">Another client cancels their Thu 4:00 PM appointment</span>
-          <span class="thread-who">Sam, on your waitlist</span>
-          <div class="bubble bubble--biz">Good news, Thu at 4:00 PM just opened up at Example Studio. Reply Y to take it.</div>
+          <span class="thread-gap">Later, another client cancels</span>
+          <div class="bubble bubble--biz">Good news, Thu at 2:30 PM just opened up. Reply Y to take it.</div>
           <div class="bubble bubble--client">Y</div>
-          <div class="bubble bubble--biz">It's yours! See you Thursday at 4:00 PM.</div>
         </div>
       </div>
     </section>
@@ -458,7 +445,7 @@
             <button type="button" class="btn btn--light btn--block" data-plan="pro" data-label="Pro ($99/mo)" data-url="https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01">Select Pro ($99)</button>
           </article>
 
-                    <article class="card plan" data-plan-card="business">
+          <article class="card plan" data-plan-card="business">
             <span class="plan-name">Business</span>
             <div class="plan-price">$199<small>/mo</small></div>
             <p class="plan-desc">For multi-staff teams and high-volume scheduling.</p>
@@ -523,11 +510,6 @@
             <div class="field">
               <label for="email">Email address</label>
               <input type="email" id="email" name="email" autocomplete="email" required placeholder="avery@example.com">
-            </div>
-
-            <div class="consent">
-              <input type="checkbox" id="agree" name="agree" required>
-              <label for="agree">I agree to the <button type="button" class="link-btn" data-open="dialog-tos">Terms of Service</button> and <button type="button" class="link-btn" data-open="dialog-privacy">Privacy Policy</button>.</label>
             </div>
 
             <!-- Spam trap: real visitors never see or fill this -->
@@ -676,7 +658,6 @@
           email: email,
           serviceName: selected.label,
           status: 'Unpurchased Lead',
-          termsAccepted: true,
           submittedAt: new Date().toISOString()
         };
 
