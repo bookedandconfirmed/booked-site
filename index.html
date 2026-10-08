@@ -9,7 +9,6 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Booked &amp; Confirmed">
   <meta property="og:description" content="Make sure your clients actually show up. Automated reminders, confirmations, and waitlist backfill.">
-  <!-- TODO: add <meta property="og:image" content="https://your-domain/preview.png"> once you have a 1200x630 preview image. -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0A0A'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%2310B981'/%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,14 +27,14 @@
       --faint: #737373;
       --green: #10B981;
       --green-light: #34D399;
-      --header-h: 4rem;
+      --header-h: 4.5rem;
       --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
       --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
     }
 
     /* ---------- Base ---------- */
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-padding-top: calc(var(--header-h) + 1rem); }
+    html { scroll-padding-top: calc(var(--header-h) + 1.5rem); }
     @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
     body {
       margin: 0;
@@ -68,15 +67,15 @@
     .skip-link:focus { top: 1rem; }
 
     /* ---------- Layout ---------- */
-    .section { padding: 4rem 1.5rem; }
+    .section { padding: 5rem 2rem; }
     .wrap { width: 100%; margin-inline: auto; }
-    .wrap--sm { max-width: 48rem; }
-    .wrap--form { max-width: 42rem; }
-    .wrap--md { max-width: 56rem; }
-    .wrap--lg { max-width: 64rem; }
-    .section-head { text-align: center; margin-bottom: 3rem; }
-    .section-head h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 900; letter-spacing: -.02em; margin-top: .25rem; }
-    .section-head p { font-size: .875rem; color: var(--muted); margin-top: .5rem; }
+    .wrap--sm { max-width: 50rem; }
+    .wrap--form { max-width: 44rem; }
+    .wrap--md { max-width: 64rem; }
+    .wrap--lg { max-width: 76rem; }
+    .section-head { text-align: center; margin-bottom: 3.5rem; }
+    .section-head h2 { font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 900; letter-spacing: -.02em; margin-top: .35rem; }
+    .section-head p { font-size: 1rem; color: var(--muted); margin-top: .75rem; }
     .eyebrow { font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--faint); }
     .eyebrow--green { color: var(--green-light); }
 
@@ -84,16 +83,16 @@
     .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 1rem;
-      transition: border-color .2s ease;
+      border-radius: 1.25rem;
+      transition: border-color .2s ease, transform .2s ease;
     }
     .card:hover { border-color: var(--border-hover); }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
       border: 1px solid transparent; border-radius: .75rem;
-      font-weight: 700; font-size: .875rem; text-align: center;
-      padding: .9rem 2rem; transition: background-color .2s ease, border-color .2s ease;
+      font-weight: 700; font-size: .9rem; text-align: center;
+      padding: 1rem 2.25rem; transition: background-color .2s ease, border-color .2s ease;
     }
     .btn--light { background: #fff; color: #000; box-shadow: 0 20px 40px rgba(0,0,0,.35); }
     .btn--light:hover { background: #e5e5e5; }
@@ -102,168 +101,183 @@
     .btn--dark { background: #171717; border-color: var(--border); color: #fff; }
     .btn--dark:hover { border-color: #fff; }
     .btn--green {
-      background: var(--green); color: #000; border-radius: .5rem;
-      font-size: .75rem; letter-spacing: .05em; text-transform: uppercase; padding: .75rem 1.5rem;
+      background: var(--green); color: #000; border-radius: .75rem;
+      font-size: .8rem; letter-spacing: .05em; text-transform: uppercase; padding: .85rem 1.75rem;
     }
     .btn--green:hover { background: var(--green-light); }
     .btn--block { width: 100%; }
     .btn[disabled] { opacity: .5; cursor: wait; }
 
-    /* ---------- Header ---------- */
+    /* ---------- Header (Corner-to-Corner) ---------- */
     .site-header {
       position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--header-h);
-      background: rgba(10,10,10,.9); backdrop-filter: blur(12px);
+      background: rgba(10,10,10,.85); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
-    .site-header .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; padding-inline: 1rem; }
-    .brand { display: flex; align-items: center; gap: .6rem; font-family: var(--font-mono); font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: -.01em; }
-    .brand-dot { width: .7rem; height: .7rem; border-radius: 50%; background: var(--green); }
-    .nav { display: flex; align-items: center; gap: 1.25rem; }
-    .nav a:not(.nav-cta) { font-size: .75rem; color: #a3a3a3; transition: color .2s ease; }
+    .site-header .wrap {
+      max-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-inline: 3rem;
+    }
+    .brand { display: flex; align-items: center; gap: .75rem; font-family: var(--font-mono); font-weight: 700; font-size: .9rem; text-transform: uppercase; letter-spacing: -.01em; }
+    .brand-dot { width: .75rem; height: .75rem; border-radius: 50%; background: var(--green); }
+    .nav { display: flex; align-items: center; gap: 2rem; }
+    .nav a:not(.nav-cta) { font-size: .85rem; color: #a3a3a3; transition: color .2s ease; font-weight: 500; }
     .nav a:not(.nav-cta):hover { color: #fff; }
-    .nav-cta { background: #fff; color: #000; font-weight: 600; font-size: .75rem; padding: .5rem 1rem; border-radius: .5rem; transition: background-color .2s ease; }
+    .nav-cta { background: #fff; color: #000; font-weight: 600; font-size: .85rem; padding: .6rem 1.25rem; border-radius: .5rem; transition: background-color .2s ease; }
     .nav-cta:hover { background: #e5e5e5; }
-    @media (max-width: 640px) { .nav-extra { display: none; } .nav { gap: .9rem; } }
+    @media (max-width: 768px) {
+      .site-header .wrap { padding-inline: 1.5rem; }
+      .nav-extra { display: none; }
+      .nav { gap: 1rem; }
+    }
 
     /* ---------- Hero ---------- */
-    .hero { padding: 8rem 1.5rem 5rem; text-align: center; }
-    .hero h1 { font-size: clamp(2.25rem, 7.5vw, 4.5rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 1.5rem; }
-    .hero h1 .wavy { text-decoration: underline wavy var(--green); text-decoration-thickness: 2px; text-underline-offset: .35em; }
-    .hero p { font-size: clamp(1rem, 2.4vw, 1.25rem); color: var(--muted); max-width: 42rem; margin: 0 auto 2.5rem; line-height: 1.6; }
-    .hero-actions { display: flex; flex-direction: column; align-items: stretch; justify-content: center; gap: .75rem; }
+    .hero { padding: 10rem 2rem 6rem; text-align: center; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.75rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero h1 .wavy { text-decoration: underline wavy var(--green); text-decoration-thickness: 3px; text-underline-offset: .4em; }
+    .hero p { font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--muted); max-width: 46rem; margin: 0 auto 3rem; line-height: 1.6; }
+    .hero-actions { display: flex; flex-direction: column; align-items: stretch; justify-content: center; gap: 1rem; }
     @media (min-width: 640px) { .hero-actions { flex-direction: row; align-items: center; } }
 
     /* ---------- Example conversation ---------- */
-    .demo { display: grid; gap: 2rem; align-items: center; }
-    @media (min-width: 768px) { .demo { grid-template-columns: 1fr 1fr; gap: 3rem; } }
-    .demo-copy h2 { font-size: clamp(1.5rem, 3.5vw, 1.875rem); font-weight: 900; letter-spacing: -.02em; margin: .25rem 0 .75rem; }
-    .demo-copy p { font-size: .9rem; color: var(--muted); line-height: 1.65; }
-    .thread { padding: 1.25rem; display: flex; flex-direction: column; gap: .6rem; }
-    .thread-label { font-family: var(--font-mono); font-size: .7rem; color: var(--faint); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .25rem; }
-    .bubble { max-width: 85%; padding: .6rem .9rem; border-radius: 1rem; font-size: .85rem; line-height: 1.45; }
-    .bubble--biz { align-self: flex-start; background: #1f1f1f; border: 1px solid var(--border); border-bottom-left-radius: .25rem; }
-    .bubble--client { align-self: flex-end; background: var(--green); color: #000; font-weight: 600; border-bottom-right-radius: .25rem; }
-    .thread-gap { align-self: center; font-family: var(--font-mono); font-size: .65rem; color: var(--faint); margin: .4rem 0; }
+    .demo { display: grid; gap: 3rem; align-items: center; }
+    @media (min-width: 900px) { .demo { grid-template-columns: 1fr 1.1fr; gap: 4rem; } }
+    .demo-copy h2 { font-size: clamp(1.75rem, 3.5vw, 2.25rem); font-weight: 900; letter-spacing: -.02em; margin: .35rem 0 1rem; }
+    .demo-copy p { font-size: 1rem; color: var(--muted); line-height: 1.7; }
+    
+    .thread { padding: 1.75rem; display: flex; flex-direction: column; gap: .75rem; }
+    .thread-header-badge {
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--font-mono); font-size: .75rem; color: var(--faint); text-transform: uppercase;
+      letter-spacing: .08em; padding-bottom: .75rem; border-bottom: 1px solid var(--border); margin-bottom: .25rem;
+    }
+    .thread-section-title { font-family: var(--font-mono); font-size: .7rem; color: var(--green-light); text-transform: uppercase; letter-spacing: .08em; margin-top: .5rem; }
+    .bubble { max-width: 88%; padding: .75rem 1rem; border-radius: 1rem; font-size: .9rem; line-height: 1.5; }
+    .bubble--biz { align-self: flex-start; background: #1a1a1a; border: 1px solid var(--border); border-bottom-left-radius: .25rem; }
+    .bubble--client { align-self: flex-end; background: var(--green); color: #000; font-weight: 700; border-bottom-right-radius: .25rem; }
+    .thread-divider {
+      display: flex; align-items: center; gap: 1rem; margin: .5rem 0; color: var(--faint);
+      font-family: var(--font-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .thread-divider::before, .thread-divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
     /* ---------- Calculator ---------- */
-    .calc { position: relative; padding: 1.5rem; }
-    @media (min-width: 640px) { .calc { padding: 3rem; } }
-    .calc-tag { position: absolute; top: 1rem; right: 1rem; font-family: var(--font-mono); font-size: .7rem; text-transform: uppercase; color: var(--faint); }
-    .calc h2 { font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; letter-spacing: -.01em; margin-bottom: .5rem; padding-right: 6rem; }
-    .calc-intro { font-size: .85rem; color: var(--muted); margin-bottom: 2rem; }
-    .slider { margin-bottom: 1.5rem; }
-    .slider-row { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: .5rem; font-family: var(--font-mono); font-size: .8rem; }
+    .calc { position: relative; padding: 3rem; }
+    .calc-tag { position: absolute; top: 1.5rem; right: 1.5rem; font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; color: var(--faint); }
+    .calc h2 { font-size: clamp(1.5rem, 3vw, 1.875rem); font-weight: 700; letter-spacing: -.01em; margin-bottom: .75rem; padding-right: 6rem; }
+    .calc-intro { font-size: .95rem; color: var(--muted); margin-bottom: 2.5rem; }
+    .slider { margin-bottom: 2rem; }
+    .slider-row { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; font-family: var(--font-mono); font-size: .85rem; }
     .slider-row label { color: #d4d4d4; }
     .slider-row output { color: #fff; font-weight: 700; }
-    input[type="range"] { width: 100%; height: .4rem; border-radius: .5rem; background: #262626; accent-color: var(--green); cursor: pointer; }
+    input[type="range"] { width: 100%; height: .5rem; border-radius: .5rem; background: #262626; accent-color: var(--green); cursor: pointer; }
     .result {
-      margin-top: 2rem; padding: 1.5rem; border-radius: .75rem;
+      margin-top: 2.5rem; padding: 2rem; border-radius: 1rem;
       background: rgba(0,0,0,.6); border: 1px solid var(--border);
-      display: flex; flex-direction: column; gap: 1rem;
+      display: flex; flex-direction: column; gap: 1.5rem;
     }
     @media (min-width: 640px) { .result { flex-direction: row; align-items: center; justify-content: space-between; } }
-    .result-label { display: block; font-family: var(--font-mono); font-size: .7rem; text-transform: uppercase; color: var(--muted); margin-bottom: .25rem; }
-    .result-value { display: block; font-family: var(--font-mono); font-size: clamp(1.9rem, 5vw, 2.25rem); font-weight: 900; color: var(--green-light); }
-    .result-note { display: block; font-size: .8rem; color: var(--muted); margin-top: .35rem; }
-    .calc-footnote { font-size: .7rem; color: var(--faint); margin-top: 1rem; }
+    .result-label { display: block; font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
+    .result-value { display: block; font-family: var(--font-mono); font-size: clamp(2.2rem, 5vw, 2.75rem); font-weight: 900; color: var(--green-light); }
+    .result-note { display: block; font-size: .85rem; color: var(--muted); margin-top: .5rem; }
+    .calc-footnote { font-size: .75rem; color: var(--faint); margin-top: 1.25rem; }
 
     /* ---------- How it works ---------- */
-    .steps { display: grid; gap: 1.5rem; }
+    .steps { display: grid; gap: 2rem; }
     @media (min-width: 768px) { .steps { grid-template-columns: repeat(3, 1fr); } }
-    .step { padding: 1.5rem; }
-    .step-num { display: block; font-family: var(--font-mono); font-size: .75rem; color: var(--green-light); margin-bottom: .75rem; }
-    .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
-    .step p { font-size: .875rem; color: var(--muted); }
+    .step { padding: 2.5rem 2rem; }
+    .step-num { display: block; font-family: var(--font-mono); font-size: .8rem; color: var(--green-light); margin-bottom: 1rem; font-weight: 700; }
+    .step h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: .75rem; }
+    .step p { font-size: .95rem; color: var(--muted); line-height: 1.6; }
 
     /* ---------- Founder note ---------- */
     .quote {
-      position: relative; padding: 1.5rem; border-left: 2px solid var(--green);
-      background: linear-gradient(to right, rgba(2,44,34,.25), transparent), var(--card);
+      position: relative; padding: 3rem; border-left: 3px solid var(--green);
+      background: linear-gradient(to right, rgba(2,44,34,.2), transparent), var(--card);
     }
-    @media (min-width: 640px) { .quote { padding: 2.5rem; } }
-    .quote blockquote { margin: 0 0 1.5rem; font-size: clamp(.9rem, 2vw, 1rem); font-style: italic; color: #d4d4d4; line-height: 1.7; }
-    .quote-author { display: flex; align-items: center; gap: .75rem; }
+    .quote blockquote { margin: 0 0 1.75rem; font-size: clamp(1rem, 2vw, 1.15rem); font-style: italic; color: #d4d4d4; line-height: 1.75; }
+    .quote-author { display: flex; align-items: center; gap: 1rem; }
     .avatar {
-      width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center;
+      width: 2.5rem; height: 2.5rem; border-radius: 50%; display: grid; place-items: center;
       background: rgba(16,185,129,.2); border: 1px solid rgba(16,185,129,.3);
-      color: var(--green-light); font-family: var(--font-mono); font-size: .7rem; font-weight: 700;
+      color: var(--green-light); font-family: var(--font-mono); font-size: .8rem; font-weight: 700;
     }
-    .author-name { font-family: var(--font-mono); font-size: .75rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: .05em; }
-    .author-role { font-size: .7rem; color: var(--faint); }
-
-    /* ---------- Pricing ---------- */
-    .plans { display: grid; gap: 1.5rem; }
-    @media (min-width: 768px) { .plans { grid-template-columns: repeat(3, 1fr); } }
-    .plan { position: relative; display: flex; flex-direction: column; padding: 2rem; }
-    .plan.is-selected { border-color: var(--green); box-shadow: 0 0 0 1px var(--green); }
-    .plan--featured { border-color: rgba(16,185,129,.5); background: linear-gradient(to bottom, var(--card), rgba(2,44,34,.3)); }
-    .plan-badge {
-      position: absolute; top: -.75rem; left: 50%; transform: translateX(-50%);
-      background: var(--green); color: #000; font-family: var(--font-mono);
-      font-size: .65rem; font-weight: 700; text-transform: uppercase; padding: .25rem .75rem; border-radius: 999px; white-space: nowrap;
-    }
-    .plan-name { font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .5rem; }
-    .plan--featured .plan-name { color: var(--green-light); }
-    .plan-price { font-family: var(--font-mono); font-size: 2.25rem; font-weight: 900; margin-bottom: 1rem; }
-    .plan-price small { font-family: var(--font-sans); font-size: .875rem; font-weight: 400; color: var(--faint); }
-    .plan-desc { font-size: .75rem; color: var(--muted); padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
-    .plan-features { display: grid; gap: .75rem; margin-bottom: 2rem; font-size: .875rem; color: #d4d4d4; }
-    .plan-features li { display: flex; align-items: center; gap: .5rem; }
-    .plan-features .icon { color: var(--green-light); font-size: .75rem; }
-    .plan .btn { margin-top: auto; font-size: .75rem; padding: .8rem 1rem; }
+    .author-name { font-family: var(--font-mono); font-size: .85rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: .05em; }
+    .author-role { font-size: .75rem; color: var(--faint); }
 
     /* ---------- FAQ ---------- */
     .faq details { border-bottom: 1px solid var(--border); }
     .faq summary {
-      list-style: none; cursor: pointer; padding: 1.1rem 0; font-weight: 600; font-size: .95rem;
+      list-style: none; cursor: pointer; padding: 1.25rem 0; font-weight: 600; font-size: 1.05rem;
       display: flex; justify-content: space-between; align-items: center; gap: 1rem;
     }
     .faq summary::-webkit-details-marker { display: none; }
-    .faq summary::after { content: '+'; font-family: var(--font-mono); color: var(--faint); font-size: 1.25rem; line-height: 1; transition: transform .2s ease; }
+    .faq summary::after { content: '+'; font-family: var(--font-mono); color: var(--faint); font-size: 1.5rem; line-height: 1; transition: transform .2s ease; }
     .faq details[open] summary::after { transform: rotate(45deg); }
-    .faq details p { font-size: .875rem; color: var(--muted); padding-bottom: 1.25rem; max-width: 40rem; line-height: 1.65; }
+    .faq details p { font-size: .95rem; color: var(--muted); padding-bottom: 1.5rem; max-width: 44rem; line-height: 1.7; }
+
+    /* ---------- Pricing ---------- */
+    .plans { display: grid; gap: 2rem; }
+    @media (min-width: 768px) { .plans { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
+    .plan { position: relative; display: flex; flex-direction: column; padding: 2.5rem; }
+    .plan.is-selected { border-color: var(--green); box-shadow: 0 0 0 1px var(--green); }
+    .plan--featured { border-color: rgba(16,185,129,.5); background: linear-gradient(to bottom, var(--card), rgba(2,44,34,.25)); }
+    .plan-badge {
+      position: absolute; top: -.85rem; left: 50%; transform: translateX(-50%);
+      background: var(--green); color: #000; font-family: var(--font-mono);
+      font-size: .7rem; font-weight: 700; text-transform: uppercase; padding: .3rem .9rem; border-radius: 999px; white-space: nowrap;
+    }
+    .plan-name { font-family: var(--font-mono); font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: .75rem; }
+    .plan--featured .plan-name { color: var(--green-light); }
+    .plan-price { font-family: var(--font-mono); font-size: 2.75rem; font-weight: 900; margin-bottom: 1.25rem; }
+    .plan-price small { font-family: var(--font-sans); font-size: .95rem; font-weight: 400; color: var(--faint); }
+    .plan-desc { font-size: .85rem; color: var(--muted); padding-bottom: 1.75rem; margin-bottom: 1.75rem; border-bottom: 1px solid var(--border); line-height: 1.6; }
+    .plan-features { display: grid; gap: 1rem; margin-bottom: 2.5rem; font-size: .95rem; color: #d4d4d4; }
+    .plan-features li { display: flex; align-items: center; gap: .75rem; }
+    .plan-features .icon { color: var(--green-light); font-size: .85rem; }
+    .plan .btn { margin-top: auto; font-size: .8rem; padding: 1rem; }
 
     /* ---------- Sign-up form ---------- */
-    .signup { position: relative; padding: 1.5rem; box-shadow: 0 25px 50px rgba(0,0,0,.4); }
-    @media (min-width: 640px) { .signup { padding: 3rem; } }
-    .signup-step { position: absolute; top: 1rem; right: 1rem; font-family: var(--font-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--green-light); }
-    .signup h2 { font-size: clamp(1.5rem, 4vw, 1.875rem); font-weight: 900; margin: .25rem 0 .5rem; }
-    .signup-plan { font-size: .85rem; color: var(--muted); margin-bottom: 2rem; }
+    .signup { position: relative; padding: 3rem; box-shadow: 0 25px 50px rgba(0,0,0,.4); }
+    .signup-step { position: absolute; top: 1.5rem; right: 1.5rem; font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--green-light); }
+    .signup h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 900; margin: .35rem 0 .75rem; }
+    .signup-plan { font-size: .95rem; color: var(--muted); margin-bottom: 2.5rem; }
     .signup-plan strong { color: #fff; font-family: var(--font-mono); }
-    .signup-plan a { color: var(--green-light); text-decoration: underline; text-underline-offset: 3px; margin-left: .5rem; font-size: .8rem; }
-    .field { margin-bottom: 1.25rem; }
-    .field label { display: block; font-family: var(--font-mono); font-size: .75rem; text-transform: uppercase; color: #d4d4d4; margin-bottom: .5rem; }
+    .signup-plan a { color: var(--green-light); text-decoration: underline; text-underline-offset: 3px; margin-left: .5rem; font-size: .85rem; }
+    .field { margin-bottom: 1.5rem; }
+    .field label { display: block; font-family: var(--font-mono); font-size: .8rem; text-transform: uppercase; color: #d4d4d4; margin-bottom: .6rem; }
     .field input {
       width: 100%; background: #171717; border: 1px solid var(--border); border-radius: .75rem;
-      padding: .9rem 1rem; font-size: .9rem; color: #fff; transition: border-color .2s ease;
+      padding: 1rem 1.25rem; font-size: .95rem; color: #fff; transition: border-color .2s ease;
     }
     .field input::placeholder { color: #525252; }
     .field input:focus { outline: none; border-color: var(--green); }
-    .field input:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
     .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-    .signup .btn--green { padding: 1rem 1.5rem; border-radius: .75rem; margin-top: .5rem; }
-    .signup-hint { font-size: .75rem; color: var(--faint); text-align: center; margin-top: 1rem; }
+    .signup .btn--green { padding: 1.1rem 1.5rem; border-radius: .75rem; margin-top: .75rem; width: 100%; font-size: .85rem; }
+    .signup-hint { font-size: .8rem; color: var(--faint); text-align: center; margin-top: 1.25rem; }
 
     /* ---------- Legal dialogs ---------- */
-    dialog { padding: 0; width: calc(100% - 3rem); max-width: 32rem; max-height: 85vh; background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 1rem; }
+    dialog { padding: 0; width: calc(100% - 3rem); max-width: 34rem; max-height: 85vh; background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 1.25rem; }
     dialog::backdrop { background: rgba(0,0,0,.8); backdrop-filter: blur(4px); }
-    .dialog-body { padding: 1.5rem 1.5rem 1rem; }
-    @media (min-width: 640px) { .dialog-body { padding: 2rem 2rem 1rem; } }
-    .dialog-body h3 { font-family: var(--font-mono); font-size: 1.25rem; font-weight: 900; color: var(--green-light); margin-bottom: 1rem; }
-    .dialog-body p { font-family: var(--font-mono); font-size: .75rem; color: #d4d4d4; line-height: 1.7; margin-bottom: .75rem; }
-    .dialog-foot { padding: 1rem 1.5rem 1.5rem; margin: 0 1.5rem; border-top: 1px solid var(--border); text-align: right; }
-    .dialog-foot { margin-inline: 0; padding-inline: 1.5rem; }
-    .dialog-foot .btn { background: #fff; color: #000; padding: .6rem 1.25rem; font-size: .75rem; border-radius: .5rem; }
+    .dialog-body { padding: 2.5rem 2.5rem 1.5rem; }
+    .dialog-body h3 { font-family: var(--font-mono); font-size: 1.35rem; font-weight: 900; color: var(--green-light); margin-bottom: 1.25rem; }
+    .dialog-body p { font-family: var(--font-mono); font-size: .85rem; color: #d4d4d4; line-height: 1.75; margin-bottom: 1rem; }
+    .dialog-foot { padding: 1rem 2.5rem 2.5rem; border-top: 1px solid var(--border); text-align: right; }
+    .dialog-foot .btn { background: #fff; color: #000; padding: .75rem 1.5rem; font-size: .8rem; border-radius: .5rem; }
     .dialog-foot .btn:hover { background: #e5e5e5; }
 
     /* ---------- Footer ---------- */
-    .site-footer { padding: 3rem 1.5rem; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: .75rem; color: var(--faint); }
-    .footer-row { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 1rem; }
+    .site-footer { padding: 4rem 2rem; border-top: 1px solid var(--border); font-family: var(--font-mono); font-size: .8rem; color: var(--faint); }
+    .footer-row { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 1.5rem; max-width: 76rem; margin: 0 auto; }
     @media (min-width: 768px) { .footer-row { flex-direction: row; } }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links button { background: none; border: 0; padding: 0; color: inherit; font-family: inherit; font-size: inherit; transition: color .2s ease; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links button { background: none; border: 0; padding: 0; color: inherit; font-family: inherit; font-size: inherit; transition: color .2s ease; cursor: pointer; }
     .footer-links button:hover { color: #fff; }
-    .legal-note { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #1a1a1a; font-size: .65rem; color: #525252; line-height: 1.7; }
+    .legal-note { max-width: 76rem; margin: 2rem auto 0; padding-top: 1.25rem; border-top: 1px solid #1a1a1a; font-size: .7rem; color: #525252; line-height: 1.75; }
   </style>
 </head>
 
@@ -277,7 +291,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
-    <div class="wrap wrap--lg">
+    <div class="wrap">
       <a class="brand" href="#top" aria-label="Booked &amp; Confirmed, back to top">
         <span class="brand-dot" aria-hidden="true"></span>
         <span>Booked &amp; Confirmed</span>
@@ -313,16 +327,25 @@
         <div class="demo-copy">
           <span class="eyebrow eyebrow--green">See it in action</span>
           <h2 id="demo-title">Clients confirm with one reply.</h2>
-          <p>Each booking gets a text right away. Clients answer with a single letter, and if someone cancels, the next person on your waitlist is offered the slot automatically.</p>
+          <p>Each booking gets an automated text right away. Clients answer with a single letter to lock in their slot, and if someone cancels, the next person on your waitlist is offered the open time automatically.</p>
         </div>
-        <div class="card thread" role="img" aria-label="Example text conversation: a reminder, the client confirming, and a cancelled slot offered to a waitlisted client.">
-          <span class="thread-label">Example conversation</span>
+        <div class="card thread" role="img" aria-label="Example text conversation showing appointment confirmation and automatic waitlist backfill upon cancellation.">
+          <div class="thread-header-badge">
+            <span>SMS Automation Preview</span>
+            <span style="color: var(--green);">Live Simulation</span>
+          </div>
+          
+          <div class="thread-section-title">1. Automated Reminder &amp; Confirmation</div>
           <div class="bubble bubble--biz">Hi Jamie, you're booked at Example Studio on Thu at 2:30 PM. Reply C to confirm or R to reschedule.</div>
           <div class="bubble bubble--client">C</div>
-          <div class="bubble bubble--biz">Confirmed. See you Thursday!</div>
-          <span class="thread-gap">Later, another client cancels</span>
-          <div class="bubble bubble--biz">Good news, Thu at 2:30 PM just opened up. Reply Y to take it.</div>
+          <div class="bubble bubble--biz">Confirmed! See you Thursday.</div>
+
+          <div class="thread-divider">Cancellation &amp; Waitlist Backfill</div>
+
+          <div class="thread-section-title">2. Instant Waitlist Recovery</div>
+          <div class="bubble bubble--biz">Good news, Thu at 2:30 PM just opened up. Reply Y to claim it.</div>
           <div class="bubble bubble--client">Y</div>
+          <div class="bubble bubble--biz">You're booked! Calendar updated successfully.</div>
         </div>
       </div>
     </section>
@@ -333,7 +356,7 @@
         <div class="card calc">
           <span class="calc-tag">Live calculator</span>
           <h2 id="calc-title">How much are no-shows costing you?</h2>
-          <p class="calc-intro">Move the sliders to estimate what you could recover each month.</p>
+          <p class="calc-intro">Move the sliders to estimate what revenue you could recover each month.</p>
 
           <div class="slider">
             <div class="slider-row">
@@ -375,12 +398,12 @@
           <li class="card step">
             <span class="step-num">01 / REACH OUT</span>
             <h3>Instant outreach</h3>
-            <p>Clients get a personalized text and email as soon as they book.</p>
+            <p>Clients get a personalized text and email immediately upon booking your services.</p>
           </li>
           <li class="card step">
             <span class="step-num">02 / CONFIRM</span>
             <h3>One-reply confirmation</h3>
-            <p>Clients confirm by replying to the message or entering a short confirmation code.</p>
+            <p>Clients confirm instantly by replying to the message without logging into portals.</p>
           </li>
           <li class="card step">
             <span class="step-num">03 / REFILL</span>
@@ -409,7 +432,35 @@
       </div>
     </section>
 
-    <!-- Pricing -->
+    <!-- FAQ (Moved above Pricing to group selling/education points) -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap wrap--sm">
+        <div class="section-head">
+          <span class="eyebrow">FAQ</span>
+          <h2 id="faq-title">Common questions</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Can I cancel anytime?</summary>
+            <p>Yes. Plans bill monthly, and you can cancel at any time to stop future billing immediately.</p>
+          </details>
+          <details>
+            <summary>Who owns my client data?</summary>
+            <p>You do. You keep full ownership of your client lists and appointment records at all times.</p>
+          </details>
+          <details>
+            <summary>Do you sell my data or client contact lists?</summary>
+            <p>No. We never sell, rent, or trade your business data or your clients' contact details.</p>
+          </details>
+          <details>
+            <summary>How do clients stop receiving texts?</summary>
+            <p>They simply reply STOP at any time to opt out of messaging in compliance with carrier guidelines.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing (Purchase section) -->
     <section class="section" id="pricing" aria-labelledby="pricing-title">
       <div class="wrap wrap--lg">
         <div class="section-head">
@@ -456,35 +507,6 @@
             </ul>
             <button type="button" class="btn btn--dark btn--block" data-plan="business" data-label="Business ($199/mo)" data-url="https://buy.stripe.com/7sY28rdpJ7Ez3Ri1sKgQE02">Select Business ($199)</button>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section" id="faq" aria-labelledby="faq-title">
-      <div class="wrap wrap--sm">
-        <div class="section-head">
-          <span class="eyebrow">FAQ</span>
-          <h2 id="faq-title">Common questions</h2>
-        </div>
-        <div class="faq">
-          <details>
-            <summary>Can I cancel anytime?</summary>
-            <p>Yes. Plans bill monthly, and you can cancel at any time to stop future billing.</p>
-          </details>
-          <details>
-            <summary>Who owns my client data?</summary>
-            <p>You do. You keep full ownership of your client lists and appointment records.</p>
-          </details>
-          <details>
-            <summary>Do you sell my data or client contact lists?</summary>
-            <p>No. We never sell, rent, or trade your business data or your clients' contact details.</p>
-          </details>
-          <details>
-            <summary>How do clients stop receiving texts?</summary>
-            <p>They reply STOP at any time to opt out of messaging.</p>
-          </details>
-          <!-- TODO: add answers about supported calendars, setup time, and what happens at your plan's appointment limit once those are finalized. -->
         </div>
       </div>
     </section>
@@ -545,160 +567,104 @@
       <h3 id="privacy-title">Privacy Policy</h3>
       <p><strong>1. Data protection:</strong> We protect your business information and customer data with industry-standard encryption practices.</p>
       <p><strong>2. No data selling:</strong> We do not sell, rent, or trade your private business data or client contact lists to external advertisers.</p>
-      <p><strong>3. Compliance:</strong> We follow standard data-handling guidelines and maintain transparent opt-out practices for messaging.</p>
     </div>
     <form method="dialog" class="dialog-foot"><button class="btn">Close</button></form>
   </dialog>
 
+  <!-- Footer -->
   <footer class="site-footer">
-    <div class="wrap wrap--lg">
-      <div class="footer-row">
-        <div>&copy; <span id="year">2026</span> Booked &amp; Confirmed. All rights reserved. Cancel anytime.</div>
-        <div class="footer-links">
-          <button type="button" data-open="dialog-tos">Terms of Service</button>
-          <button type="button" data-open="dialog-privacy">Privacy Policy</button>
-        </div>
+    <div class="footer-row">
+      <div>&copy; 2026 Booked &amp; Confirmed. All rights reserved.</div>
+      <div class="footer-links">
+        <button type="button" onclick="document.getElementById('dialog-tos').showModal()">Terms of Service</button>
+        <button type="button" onclick="document.getElementById('dialog-privacy').showModal()">Privacy Policy</button>
       </div>
-      <p class="legal-note">Automated SMS and email notifications comply with standard carrier opt-in protocols and TCPA requirements. Message &amp; data rates may apply. Reply STOP to opt out of messaging at any time.</p>
+    </div>
+    <div class="legal-note">
+      Booked &amp; Confirmed provides automated messaging tools to help businesses reduce no-shows. All messaging complies with standard telecommunication guidelines.
     </div>
   </footer>
 
   <script>
-    (function () {
-      'use strict';
+    // Calculator Script
+    const countInput = document.getElementById('count');
+    const countOut = document.getElementById('countOut');
+    const ticketInput = document.getElementById('ticket');
+    const ticketOut = document.getElementById('ticketOut');
+    const monthlyOut = document.getElementById('monthly');
+    const ratioOut = document.getElementById('ratio');
 
-      /* ---------- Settings ---------- */
-      var WEBHOOK_URL = 'https://hook.us2.make.com/fx2duonl4damej9p4t3wsvr4i5bdenfo';
-      var WEBHOOK_TIMEOUT_MS = 4000;
-      var PRO_PRICE = 99;
+    function updateCalc() {
+      const count = parseInt(countInput.value, 10);
+      const ticket = parseInt(ticketInput.value, 10);
+      countOut.textContent = count;
+      ticketOut.textContent = '$' + ticket;
+      
+      const monthly = count * ticket * 4;
+      monthlyOut.textContent = '$' + monthly.toLocaleString();
+      ratioOut.textContent = `Based on ${count} missed visits/wk at $${ticket} avg value`;
+    }
 
-      var $ = function (id) { return document.getElementById(id); };
-      var money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    countInput.addEventListener('input', updateCalc);
+    ticketInput.addEventListener('input', updateCalc);
+    updateCalc();
 
-      /* ---------- Calculator ---------- */
-      var count = $('count'), ticket = $('ticket');
+    // Plan Selection & Stripe Redirect Handler
+    const planButtons = document.querySelectorAll('[data-plan]');
+    let selectedPlan = 'pro';
+    let selectedUrl = 'https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01';
+    let selectedText = 'Pro ($99/mo)';
 
-      function updateCalculator() {
-        var c = Number(count.value);
-        var t = Number(ticket.value);
-        var monthly = c * t * 4;
-        $('countOut').textContent = c;
-        $('ticketOut').textContent = money.format(t);
-        $('monthly').textContent = money.format(monthly);
-
-        var note = $('ratio');
-        if (monthly === 0) {
-          note.textContent = 'Move the sliders to see your estimate.';
-        } else if (monthly >= PRO_PRICE) {
-          var times = monthly / PRO_PRICE;
-          note.textContent = 'About ' + (times < 10 ? times.toFixed(1) : Math.round(times)) + '\u00D7 the cost of the Pro plan.';
-        } else {
-          note.textContent = 'Covers ' + Math.round((monthly / PRO_PRICE) * 100) + '% of the Pro plan cost.';
-        }
-      }
-      count.addEventListener('input', updateCalculator);
-      ticket.addEventListener('input', updateCalculator);
-      updateCalculator();
-
-      /* ---------- Plan selection ---------- */
-      var planButtons = document.querySelectorAll('[data-plan]');
-      var selected = { key: 'pro', label: 'Pro ($99/mo)', url: document.querySelector('[data-plan="pro"]').dataset.url };
-
-      function selectPlan(btn) {
-        selected = { key: btn.dataset.plan, label: btn.dataset.label, url: btn.dataset.url };
-        $('planLabel').textContent = selected.label;
-        document.querySelectorAll('[data-plan-card]').forEach(function (card) {
-          card.classList.toggle('is-selected', card.dataset.planCard === selected.key);
+    planButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        planButtons.forEach(b => {
+          b.classList.remove('btn--light');
+          b.classList.add('btn--dark');
+          const card = b.closest('[data-plan-card]');
+          if (card) card.classList.remove('is-selected');
         });
-        planButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+        
+        btn.classList.remove('btn--dark');
+        btn.classList.add('btn--light');
+        const activeCard = btn.closest('[data-plan-card]');
+        if (activeCard) activeCard.classList.add('is-selected');
+
+        selectedPlan = btn.getAttribute('data-plan');
+        selectedUrl = btn.getAttribute('data-url');
+        selectedText = btn.getAttribute('data-label');
+        
+        document.getElementById('planLabel').textContent = selectedText;
+        
+        // Smooth scroll to onboarding form
+        document.getElementById('onboarding').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Form submission simulation & redirect
+    const leadForm = document.getElementById('leadForm');
+    leadForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fax = document.getElementById('fax').value;
+      if (fax) return; // Spam trap hit
+
+      const name = document.getElementById('clientName').value.trim();
+      const biz = document.getElementById('businessName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('formMessage');
+
+      if (!name || !biz || !email) {
+        msg.textContent = 'Please fill out all required fields.';
+        msg.style.color = '#f87171';
+        return;
       }
 
-      planButtons.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          selectPlan(btn);
-          $('onboarding').scrollIntoView();
-          $('clientName').focus({ preventScroll: true });
-        });
-      });
-
-      /* ---------- Lead capture, then Stripe checkout ---------- */
-      var form = $('leadForm');
-      var submitBtn = $('submitBtn');
-      var message = $('formMessage');
-
-      function setLoading(isLoading) {
-        submitBtn.disabled = isLoading;
-        $('submitText').textContent = isLoading ? 'Processing...' : 'Continue to payment';
-        $('submitIcon').style.display = isLoading ? 'none' : '';
-      }
-
-      function newLeadId() {
-        var raw = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random();
-        return raw.replace(/[^a-zA-Z0-9]/g, '').slice(0, 40);
-      }
-
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        message.textContent = '';
-
-        if (!form.checkValidity()) {
-          form.reportValidity();
-          return;
-        }
-        if (form.elements.fax.value) { return; } // spam trap filled: stop silently
-
-        setLoading(true);
-
-        var leadId = newLeadId();
-        var email = form.elements.email.value.trim();
-        var payload = {
-          leadId: leadId,
-          clientName: form.elements.clientName.value.trim(),
-          businessName: form.elements.businessName.value.trim(),
-          email: email,
-          serviceName: selected.label,
-          status: 'Unpurchased Lead',
-          submittedAt: new Date().toISOString()
-        };
-
-        var controller = new AbortController();
-        var timer = setTimeout(function () { controller.abort(); }, WEBHOOK_TIMEOUT_MS);
-
-        // A failed lead log should never block someone from paying, so we always continue to Stripe.
-        fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-          keepalive: true
-        })
-          .catch(function (err) { console.warn('Lead log failed:', err); })
-          .then(function () {
-            clearTimeout(timer);
-            var checkout = new URL(selected.url);
-            checkout.searchParams.set('prefilled_email', email);
-            checkout.searchParams.set('client_reference_id', leadId);
-            window.location.href = checkout.toString();
-          });
-      });
-
-      // If someone comes back from Stripe with the Back button, reset the button.
-      window.addEventListener('pageshow', function () { setLoading(false); });
-
-      /* ---------- Legal dialogs ---------- */
-      document.querySelectorAll('[data-open]').forEach(function (btn) {
-        btn.addEventListener('click', function () { $(btn.dataset.open).showModal(); });
-      });
-      document.querySelectorAll('dialog').forEach(function (dlg) {
-        dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); } });
-      });
-
-      /* ---------- Footer year ---------- */
-      $('year').textContent = new Date().getFullYear();
-
-      // Start with Pro highlighted, matching the default plan.
-      selectPlan(document.querySelector('[data-plan="pro"]'));
-    })();
+      msg.textContent = 'Redirecting to secure checkout...';
+      msg.style.color = 'var(--green-light)';
+      
+      setTimeout(() => {
+        window.location.href = selectedUrl;
+      }, 800);
+    });
   </script>
 </body>
 </html>
