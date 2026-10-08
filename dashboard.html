@@ -178,7 +178,7 @@
               </label>
             </div>
 
-            <button type="button" class="btn" onclick="alert('Scheduling integration saved successfully.')">Save Integration</button>
+            <button type="button" class="btn" onclick="saveIntegration()">Save Integration</button>
           </div>
         </div>
 
@@ -199,6 +199,65 @@
   <footer class="site-footer">
     Need help setting up your integration? Contact our implementation team at support@bookedconfirmed.com
   </footer>
+
+  <script>
+    function saveIntegration() {
+      const platform = document.getElementById('platform').value;
+      const calLink = document.getElementById('cal-link').value;
+      const syncExisting = document.getElementById('sync-existing').checked;
+
+      if (!calLink) {
+        alert('Please enter your integration link or URL.');
+        return;
+      }
+
+      // 1. Update Step 2 appearance to completed
+      const step2 = document.querySelector('.step-item.active');
+      step2.classList.remove('active');
+      step2.classList.add('completed');
+      step2.style.opacity = '0.65';
+      
+      const step2Content = step2.querySelector('.step-content');
+      step2Content.innerHTML = `
+        <h3>Connect Scheduling Infrastructure</h3>
+        <p style="margin-bottom: 0;">Connected to <strong>${platform.toUpperCase()}</strong> (${calLink})</p>
+      `;
+
+      // 2. Unlock Step 3 dynamically
+      const step3 = document.querySelector('.step-item.locked');
+      step3.classList.remove('locked');
+      step3.classList.add('active');
+      
+      const step3Content = step3.querySelector('.step-content');
+      step3Content.style.opacity = '1';
+      step3Content.innerHTML = `
+        <h3>SMS Sender ID &amp; Template Test</h3>
+        <p>Your calendar is linked! Configure your outbound sender ID and run a test text message.</p>
+        
+        <div class="field" style="margin-top: 1rem;">
+          <label for="test-phone">Your Cell Phone Number (for testing)</label>
+          <input type="tel" id="test-phone" placeholder="+1 (555) 000-0000">
+        </div>
+
+        <button type="button" class="btn" id="sendTestBtn" onclick="runTestSms()">Send Test SMS</button>
+        <div id="testStatus" style="font-size: 0.8rem; color: var(--green); margin-top: 0.75rem;"></div>
+      `;
+    }
+
+    function runTestSms() {
+      const phone = document.getElementById('test-phone').value;
+      const statusDiv = document.getElementById('testStatus');
+      if (!phone) {
+        alert('Please enter a phone number to test.');
+        return;
+      }
+      statusDiv.textContent = 'Sending test message...';
+      
+      setTimeout(() => {
+        statusDiv.textContent = '✓ Test SMS sent successfully! Check your phone.';
+      }, 1200);
+    }
+  </script>
 
 </body>
 </html>
