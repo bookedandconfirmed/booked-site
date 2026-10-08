@@ -173,3 +173,32 @@
 
             <div class="checkbox-row">
               <input type="checkbox" id="sync-existing" checked>
+              <label for="sync-existing" style="margin: 0; color: var(--muted); text-transform: none; font-family: var(--font-sans);">
+                <strong style="color: #fff; font-weight: 600;">Also apply text reminders to already booked appointments</strong> (recommended for upcoming bookings in the next 30 days)
+              </label>
+            </div>
+
+            <button type="button" class="btn" onclick="alert('Scheduling integration saved successfully.')">Save Integration</button>
+          </div>
+        </div>
+
+        <!-- Step 3: SMS Configuration -->
+        <div class="step-item locked">
+          <div class="step-num">3</div>
+          <div class="step-content" style="opacity: 0.4;">
+            <h3>SMS Sender ID &amp; Template Test</h3>
+            <p style="margin-bottom: 0;">Unlocks automatically once your calendar provider is connected.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    Need help setting up your integration? Contact our implementation team at support@bookedconfirmed.com
+  </footer>
+
+</body>
+</html>
