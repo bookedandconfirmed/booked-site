@@ -201,16 +201,44 @@
   </footer>
 
   <script>
-    // Automatically read the plan from the URL and configure package-specific features
+    // Automatically read the plan from the URL and configure package-specific limits and features
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const plan = urlParams.get('plan');
+      const plan = urlParams.get('plan') || 'starter'; // Default to starter if param is missing
       
-      if (plan) {
-        const eyebrow = document.querySelector('.hero-banner .eyebrow');
-        if (eyebrow) {
-          eyebrow.textContent = `Stripe Subscription Active — ${plan.toUpperCase()} Tier`;
+      const eyebrow = document.querySelector('.hero-banner .eyebrow');
+      const bannerTitle = document.querySelector('.hero-banner h1');
+      const bannerDesc = document.querySelector('.hero-banner p');
+
+      // Define tier specifications mapping directly to your pricing ladder
+      const tierConfig = {
+        starter: {
+          name: 'Starter Tier',
+          limit: 'Up to 100 appointments/mo',
+          features: 'Standard SMS/email reminders & basic calendar sync'
+        },
+        pro: {
+          name: 'Pro Tier',
+          limit: 'Up to 400 appointments/mo',
+          features: 'Two-way interactive SMS replies, automated waitlist backfill & priority support'
+        },
+        business: {
+          name: 'Business Tier',
+          limit: 'Unlimited appointments/mo',
+          features: 'Multi-staff roster support, custom branding, multi-location sync & advanced API access'
         }
+      };
+
+      const currentTier = tierConfig[plan] || tierConfig.starter;
+
+      if (eyebrow) {
+        eyebrow.textContent = `Stripe Subscription Active — ${currentTier.name.toUpperCase()}`;
+      }
+      if (bannerTitle) {
+        bannerTitle.textContent = `Workspace Initialized (${currentTier.name})`;
+      }
+      if (bannerDesc) {
+        bannerDesc.textContent = `Plan limit: ${currentTier.limit}. Features unlocked: ${currentTier.features}. Link your calendar below to begin.`;
       }
     });
 
