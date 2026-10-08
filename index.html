@@ -1,203 +1,342 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booked & Confirmed | Automated Business Platform</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Booked & Confirmed | Automated Appointment Management</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#0A0A0A',
+                        brandCard: '#141414',
+                        brandBorder: '#222222',
+                        brandAccent: '#EDEDED',
+                        brandGreen: '#10B981',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: #EDEDED; overflow-x: hidden; scroll-behavior: smooth; }
+        .brutal-card { background: #141414; border: 1px solid #222222; transition: all 0.2s ease; }
+        .brutal-card:hover { border-color: #444444; }
+        .noise { background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 0); background-size: 24px 24px; }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white" x-data="bookingApp()">
+<body class="bg-[#0A0A0A] min-h-screen text-[#EDEDED] noise selection:bg-white selection:text-black" x-data="bookingApp()">
 
-    <!-- Header / Nav -->
-    <header class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer" @click="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center font-bold text-xl shadow-lg shadow-indigo-600/30">B</div>
-                <span class="text-xl font-extrabold tracking-tight">Booked & Confirmed</span>
+    <!-- Absolute top enforcement script -->
+    <script>
+        if (window.location.hash) {
+            history.replaceState(null, null, window.location.pathname + window.location.search);
+        }
+        window.scrollTo(0, 0);
+        window.addEventListener('load', function() {
+            setTimeout(function() { window.scrollTo(0, 0); }, 10);
+        });
+    </script>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#222222]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500"></span>
+                <span class="font-bold tracking-tight text-xs sm:text-sm uppercase font-mono">Booked & Confirmed</span>
             </div>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
-                <a href="#features" class="hover:text-white transition">Features</a>
-                <a href="#calculator" class="hover:text-white transition">ROI Calculator</a>
-                <a href="#pricing" class="hover:text-white transition">Pricing</a>
-            </nav>
-            <div>
-                <a href="#signup" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition shadow-lg shadow-indigo-600/20">Get Started</a>
+            <div class="flex items-center space-x-3 sm:space-x-6">
+                <a href="#simulator" class="text-[11px] sm:text-xs text-neutral-400 hover:text-white transition">Calculator</a>
+                <a href="#protocol" class="text-[11px] sm:text-xs text-neutral-400 hover:text-white transition">Features</a>
+                <a href="#pricing" class="bg-white text-black font-semibold text-[11px] sm:text-xs px-3 sm:px-4 py-2 rounded-lg hover:bg-neutral-200 transition">
+                    Get Started
+                </a>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative pt-24 pb-20 overflow-hidden">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <div class="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-500/20 px-4 py-1.5 rounded-full text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-8">
-                <span>Automated Scale Engine</span>
+    <section class="pt-32 pb-20 px-6 max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl sm:text-7xl font-black tracking-tight leading-[1.05] mb-6">
+            Booked & Confirmed makes sure your clients <span class="underline decoration-emerald-500 decoration-wavy decoration-2 underline-offset-8">actually show up.</span>
+        </h1>
+        
+        <p class="text-base sm:text-xl text-neutral-400 max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
+            Stop losing hours chasing ghosts, reschedules, and no-shows. We systematically lock down your calendar so every slot pays out.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="#pricing" class="w-full sm:w-auto bg-white text-black font-bold px-8 py-4 rounded-xl hover:bg-neutral-200 transition text-sm flex items-center justify-center space-x-2 shadow-2xl">
+                <span>Get Started</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#simulator" class="w-full sm:w-auto brutal-card text-white font-medium px-8 py-4 rounded-xl text-sm flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-calculator text-neutral-400"></i>
+                <span>Calculate Lost Revenue</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Live Calculator -->
+    <section id="simulator" class="py-16 px-6 max-w-3xl mx-auto" x-data="{ count: 12, ticket: 175 }">
+        <div class="brutal-card p-6 sm:p-12 rounded-2xl relative">
+            <div class="absolute top-4 right-4 text-xs font-mono text-neutral-500 uppercase">Live Calculator</div>
+            
+            <h2 class="text-xl sm:text-2xl font-bold tracking-tight mb-2">How much are no-shows costing you?</h2>
+            <p class="text-xs sm:text-sm text-neutral-400 mb-8">Move the sliders to see what Booked & Confirmed recovers for your business every month.</p>
+
+            <div class="space-y-6 mb-8">
+                <div>
+                    <div class="flex justify-between items-center mb-2 text-xs sm:text-sm font-mono">
+                        <span class="text-neutral-300">Missed appointments per week:</span>
+                        <span class="text-white font-bold" x-text="count"></span>
+                    </div>
+                    <input type="range" min="0" max="100" x-model="count" class="w-full accent-emerald-500 bg-neutral-800 h-1.5 rounded-lg cursor-pointer">
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2 text-xs sm:text-sm font-mono">
+                        <span class="text-neutral-300">Average value per appointment:</span>
+                        <span class="text-white font-bold" x-text="'$' + ticket"></span>
+                    </div>
+                    <input type="range" min="0" max="1000" step="25" x-model="ticket" class="w-full accent-emerald-500 bg-neutral-800 h-1.5 rounded-lg cursor-pointer">
+                </div>
             </div>
-            <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-tight mb-8">
-                Eliminate No-Shows & <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">Automate Your Bookings</span>
-            </h1>
-            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12">
-                A scalable, automated business platform built to seamlessly capture acquisition, sync your database, and protect your schedule.
+
+            <div class="bg-black/60 border border-[#222222] p-6 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-mono uppercase text-neutral-400 block mb-1">Monthly Revenue Saved</span>
+                    <span class="text-3xl sm:text-4xl font-black text-emerald-400 font-mono" x-text=" '$' + (count * ticket * 4).toLocaleString() "></span>
+                </div>
+                <a href="#pricing" class="bg-emerald-500 text-black font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-lg hover:bg-emerald-400 transition whitespace-nowrap">
+                    Stop The Leak
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Protocol Section -->
+    <section id="protocol" class="py-16 px-6 max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="text-xs font-mono text-neutral-500 uppercase tracking-widest">The Protocol</span>
+            <h2 class="text-3xl font-black mt-1">How We Lock Your Schedule</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="brutal-card p-6 rounded-xl">
+                <span class="text-xs font-mono text-emerald-400 mb-3 block">01 / AUDIT</span>
+                <h3 class="font-bold text-lg mb-2">Instant Outreach</h3>
+                <p class="text-sm text-neutral-400">Clients get personalized text & email touchpoints immediately upon booking.</p>
+            </div>
+            <div class="brutal-card p-6 rounded-xl">
+                <span class="text-xs font-mono text-emerald-400 mb-3 block">02 / CONFIRM</span>
+                <h3 class="font-bold text-lg mb-2">Frictionless Lock-In</h3>
+                <p class="text-sm text-neutral-400">Our system forces explicit confirmation codes or interactive replies.</p>
+            </div>
+            <div class="brutal-card p-6 rounded-xl">
+                <span class="text-xs font-mono text-emerald-400 mb-3 block">03 / ZERO LOSS</span>
+                <h3 class="font-bold text-lg mb-2">Backfill Automation</h3>
+                <p class="text-sm text-neutral-400">If someone cancels, standby waitlist leads are instantly slotted in.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Testimonial Section -->
+    <section class="py-16 px-6 max-w-3xl mx-auto">
+        <div class="brutal-card p-6 sm:p-10 rounded-2xl border-l-2 border-emerald-500 relative bg-gradient-to-r from-emerald-950/10 to-transparent">
+            <div class="absolute top-6 right-6 text-neutral-700 text-3xl font-serif">“</div>
+            <p class="text-sm sm:text-base text-neutral-300 italic leading-relaxed mb-6">
+                "We built Booked & Confirmed because losing track of appointments and chasing down clients shouldn't be part of running a business. Having a reliable, bulletproof automated workflow changes everything."
             </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#signup" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-4 rounded-xl text-base transition shadow-xl shadow-indigo-600/30">Deploy Your System Now</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-20 border-t border-slate-900 bg-slate-950">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl font-bold tracking-tight mb-4">Engineered for Maximum Retention</h2>
-                <p class="text-slate-400">Every module is built to eliminate friction, secure upfront commitment, and automate your workflow.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-lg mb-6">01</div>
-                    <h3 class="text-xl font-bold mb-3">Instant Lead Sync</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Captures client records immediately upon form submission, ensuring zero lost prospects even prior to payment completion.</p>
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs font-bold font-mono">
+                    AL
                 </div>
-                <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-lg mb-6">02</div>
-                    <h3 class="text-xl font-bold mb-3">Stripe-First Checkout</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Seamlessly transition users from your custom workspace intake into secure, automated payment processing.</p>
-                </div>
-                <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-lg mb-6">03</div>
-                    <h3 class="text-xl font-bold mb-3">Automated Database</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">Directly syncs client names, emails, services, and appointment schedules into your centralized master sheets.</p>
+                <div>
+                    <div class="text-xs font-bold text-white uppercase tracking-wider font-mono">Avery Lay</div>
+                    <div class="text-[11px] text-neutral-500">Founder, Booked & Confirmed</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ROI Calculator Section -->
-    <section id="calculator" class="py-20 bg-slate-900/30 border-t border-slate-900" x-data="{ appointments: 30, value: 150 }">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="text-center max-w-xl mx-auto mb-12">
-                <h2 class="text-3xl font-bold tracking-tight mb-3">Calculate Your Recovered Revenue</h2>
-                <p class="text-slate-400 text-sm">See how much revenue you protect by eliminating scheduling drop-offs.</p>
+    <!-- Competitive Pricing Section -->
+    <section id="pricing" class="py-20 px-6 max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Pricing</span>
+            <h2 class="text-3xl sm:text-4xl font-black mt-1">Simple, Affordable Plans</h2>
+            <p class="text-sm text-neutral-400 mt-2">Fair, accessible pricing designed to pay for itself on day one. Cancel anytime.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Starter Tier ($49) -->
+            <div class="brutal-card p-8 rounded-2xl flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-mono text-neutral-400 uppercase tracking-wider block mb-2">Starter</span>
+                    <div class="text-4xl font-black font-mono mb-4">$49<span class="text-sm text-neutral-500 font-normal font-sans">/mo</span></div>
+                    <p class="text-xs text-neutral-400 pb-6 border-b border-[#222222] mb-6">Great for individual practitioners and freelancers.</p>
+                    <ul class="space-y-3 text-sm text-neutral-300 mb-8">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Up to 100 appointments/mo</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> SMS & Email reminders</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Basic calendar sync</li>
+                    </ul>
+                </div>
+                <button @click="selectedTier = 'Starter ($49/mo)'; selectedUrl = 'https://buy.stripe.com/fZu9ATclFcYT9bCdbsgQE00'; document.getElementById('onboarding').scrollIntoView({behavior: 'smooth'});" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition block cursor-pointer">
+                    Select Starter ($49)
+                </button>
             </div>
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 md:p-12 shadow-xl">
-                <div class="grid md:grid-cols-2 gap-8 mb-8">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-300 mb-2">Monthly Bookings: <span class="text-indigo-400" x-text="appointments"></span></label>
-                        <input type="range" min="5" max="150" x-model="appointments" class="w-full accent-indigo-600 cursor-pointer">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-300 mb-2">Average Service Value ($): <span class="text-indigo-400" x-text="value"></span></label>
-                        <input type="range" min="50" max="500" step="25" x-model="value" class="w-full accent-indigo-600 cursor-pointer">
-                    </div>
+
+            <!-- Pro Tier ($99) -->
+            <div class="brutal-card p-8 rounded-2xl flex flex-col justify-between border-emerald-500/50 relative bg-gradient-to-b from-[#141414] to-emerald-950/10">
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-black font-mono text-[10px] uppercase font-bold px-3 py-1 rounded-full">
+                    Most Popular
                 </div>
-                <div class="bg-indigo-950/40 border border-indigo-500/20 rounded-xl p-6 text-center">
-                    <span class="text-xs uppercase tracking-wider text-indigo-300 font-semibold">Estimated Monthly Protection</span>
-                    <div class="text-4xl md:text-5xl font-black text-white mt-2" x-text="`$${(appointments * value * 0.2).toLocaleString()}`"></div>
-                    <p class="text-slate-400 text-xs mt-2">Based on a standard 20% reduction in unconfirmed bookings.</p>
+                <div>
+                    <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider block mb-2">Pro</span>
+                    <div class="text-4xl font-black font-mono mb-4">$99<span class="text-sm text-neutral-500 font-normal font-sans">/mo</span></div>
+                    <p class="text-xs text-neutral-400 pb-6 border-b border-[#222222] mb-6">Perfect for busy local businesses and growing practices.</p>
+                    <ul class="space-y-3 text-sm text-neutral-300 mb-8">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Up to 400 appointments/mo</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Two-way interactive SMS replies</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Automated waitlist backfill</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Priority support</li>
+                    </ul>
                 </div>
+                <button @click="selectedTier = 'Pro ($99/mo)'; selectedUrl = 'https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01'; document.getElementById('onboarding').scrollIntoView({behavior: 'smooth'});" class="w-full py-3 bg-white hover:bg-neutral-200 text-black font-bold rounded-xl text-center text-xs transition shadow-lg block cursor-pointer">
+                    Select Pro ($99)
+                </button>
+            </div>
+
+            <!-- Business Tier ($199) -->
+            <div class="brutal-card p-8 rounded-2xl flex flex-col justify-between">
+                <div>
+                    <span class="text-xs font-mono text-neutral-400 uppercase tracking-wider block mb-2">Business</span>
+                    <div class="text-4xl font-black font-mono mb-4">$199<span class="text-sm text-neutral-500 font-normal font-sans">/mo</span></div>
+                    <p class="text-xs text-neutral-400 pb-6 border-b border-[#222222] mb-6">For multi-staff teams and high-volume scheduling.</p>
+                    <ul class="space-y-3 text-sm text-neutral-300 mb-8">
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Unlimited appointments</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Multi-staff roster support</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-2 text-xs"></i> Custom reminders & branding</li>
+                    </ul>
+                </div>
+                <button @click="selectedTier = 'Business ($199/mo)'; selectedUrl = 'https://buy.stripe.com/7sY28rdpJ7Ez3Ri1sKgQE02'; document.getElementById('onboarding').scrollIntoView({behavior: 'smooth'});" class="w-full py-3 bg-neutral-900 border border-[#222222] hover:border-white text-white font-bold rounded-xl text-center text-xs transition block cursor-pointer">
+                    Select Business ($199)
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Pricing / Tiers Section -->
-    <section id="pricing" class="py-20 border-t border-slate-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl font-bold tracking-tight mb-4">Transparent, Scalable Tiers</h2>
-                <p class="text-slate-400">Choose the integration architecture that fits your business model.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold mb-2">Starter Plan</h3>
-                        <p class="text-slate-400 text-sm mb-6">Essential lead capture and direct spreadsheet sync.</p>
-                        <div class="text-3xl font-black mb-6">$49<span class="text-sm font-normal text-slate-400">/mo</span></div>
-                    </div>
-                    <a href="#signup" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 rounded-xl text-center transition">Select Starter</a>
-                </div>
-                <div class="bg-indigo-950/20 border-2 border-indigo-500/50 rounded-2xl p-8 flex flex-col justify-between relative shadow-xl shadow-indigo-600/10">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">Most Popular</div>
-                    <div>
-                        <h3 class="text-lg font-bold mb-2">Pro Growth Package</h3>
-                        <p class="text-slate-400 text-sm mb-6">Advanced webhook routing, instant sync, and automated recovery.</p>
-                        <div class="text-3xl font-black mb-6">$99<span class="text-sm font-normal text-slate-400">/mo</span></div>
-                    </div>
-                    <a href="#signup" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl text-center transition shadow-lg shadow-indigo-600/20">Select Pro</a>
-                </div>
-                <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-8 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold mb-2">Enterprise Solution</h3>
-                        <p class="text-slate-400 text-sm mb-6">Full white-label domain deployment and custom pipeline scaling.</p>
-                        <div class="text-3xl font-black mb-6">$249<span class="text-sm font-normal text-slate-400">/mo</span></div>
-                    </div>
-                    <a href="#signup" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 rounded-xl text-center transition">Select Enterprise</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Bottom Persistent Intake Form Section -->
+    <section id="onboarding" class="py-20 px-6 max-w-2xl mx-auto">
+        <div class="brutal-card p-6 sm:p-12 rounded-2xl relative shadow-2xl">
+            <div class="absolute top-4 right-4 text-xs font-mono text-emerald-400 uppercase tracking-widest">Step 2 of 2</div>
+            
+            <span class="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-1">Ready to start?</span>
+            <h2 class="text-2xl sm:text-3xl font-black mb-2">Set Up Your Workspace</h2>
+            <p class="text-xs sm:text-sm text-neutral-400 mb-8">You're signing up for: <span class="text-white font-bold font-mono" x-text="selectedTier"></span></p>
 
-    <!-- Signup & Integration Form Section -->
-    <section id="signup" class="py-20 bg-slate-900/50 border-t border-slate-800/80">
-        <div class="max-w-xl mx-auto px-6">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
-                <h2 class="text-2xl font-bold tracking-tight mb-2 text-center">Initialize Your Platform</h2>
-                <p class="text-slate-400 text-sm text-center mb-8">Enter your details below to activate your workspace and proceed to secure checkout.</p>
-                
-                <form @submit.prevent="submitLeadAndRedirect" class="space-y-5">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Client Name</label>
-                        <input type="text" x-model="formData.clientName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition" placeholder="Alex Taylor">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Email Address</label>
-                        <input type="email" x-model="formData.email" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition" placeholder="alex@business.com">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Service Name / Plan</label>
-                        <select x-model="formData.serviceName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition">
-                            <option value="" disabled selected>Select your package</option>
-                            <option value="Starter Plan">Starter Plan ($49/mo)</option>
-                            <option value="Pro Growth Package">Pro Growth Package ($99/mo)</option>
-                            <option value="Enterprise Solution">Enterprise Solution ($249/mo)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Appointment / Launch Date</label>
-                        <input type="date" x-model="formData.appointmentDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition">
-                    </div>
-                    <button type="submit" :disabled="loading" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-indigo-600/20 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50">
-                        <span x-text="loading ? 'Processing...' : 'Continue to Secure Payment'"></span>
+            <form @submit.prevent="submitLeadAndRedirect" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-mono uppercase text-neutral-300 mb-2">Your Full Name</label>
+                    <input type="text" x-model="formData.clientName" required placeholder="Avery Lay" class="w-full bg-neutral-900 border border-[#222222] rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono uppercase text-neutral-300 mb-2">Business Name / Service</label>
+                    <input type="text" x-model="formData.businessName" required placeholder="Avery's Studio" class="w-full bg-neutral-900 border border-[#222222] rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono uppercase text-neutral-300 mb-2">Email Address</label>
+                    <input type="email" x-model="formData.email" required placeholder="avery@example.com" class="w-full bg-neutral-900 border border-[#222222] rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+                </div>
+                <div class="pt-2">
+                    <button type="submit" :disabled="loading" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold py-4 rounded-xl text-xs uppercase tracking-wider transition flex items-center justify-center space-x-2 cursor-pointer shadow-lg disabled:opacity-50">
+                        <span x-text="loading ? 'Processing...' : 'Continue to Payment'"></span>
+                        <i class="fa-solid fa-arrow-right" x-show="!loading"></i>
                     </button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </section>
+
+    <!-- Modal Popups (TOS, Privacy) -->
+    <div x-show="activeModal !== null" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6 backdrop-blur-sm" x-transition.opacity>
+        <div class="brutal-card p-6 sm:p-8 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto relative text-left">
+            <button @click="activeModal = null" class="absolute top-4 right-4 text-neutral-400 hover:text-white text-lg cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            
+            <template x-if="activeModal === 'tos'">
+                <div>
+                    <h3 class="text-xl font-black mb-4 font-mono text-emerald-400">Terms of Service</h3>
+                    <div class="space-y-3 text-xs text-neutral-300 leading-relaxed font-mono">
+                        <p><strong>1. Services:</strong> Booked & Confirmed provides automated appointment scheduling, confirmation workflows, and calendar management.</p>
+                        <p><strong>2. Ownership:</strong> You retain full ownership of all data, client rosters, and appointment records processed through your account.</p>
+                        <p><strong>3. Billing & Cancellation:</strong> Subscriptions bill monthly. You may cancel at any time directly through your dashboard or by notifying support to halt future billing.</p>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="activeModal === 'privacy'">
+                <div>
+                    <h3 class="text-xl font-black mb-4 font-mono text-emerald-400">Privacy Policy</h3>
+                    <div class="space-y-3 text-xs text-neutral-300 leading-relaxed font-mono">
+                        <p><strong>1. Data Protection:</strong> We protect your business information and customer data with industry-standard encryption practices.</p>
+                        <p><strong>2. No Data Selling:</strong> We do not sell, rent, or trade your private business data or client contact lists to external advertisers.</p>
+                        <p><strong>3. Compliance:</strong> We adhere to standard data handling guidelines and maintain transparent opt-out practices for messaging.</p>
+                    </div>
+                </div>
+            </template>
+
+            <div class="mt-6 pt-4 border-t border-[#222222] text-right">
+                <button @click="activeModal = null" class="bg-white text-black font-bold text-xs px-5 py-2.5 rounded-lg hover:bg-neutral-200 transition cursor-pointer">Close</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-slate-900 text-center text-slate-500 text-sm">
-        <p>&copy; 2026 Booked & Confirmed. All rights reserved.</p>
+    <footer class="py-12 border-t border-[#222222] text-xs text-neutral-500 font-mono">
+        <div class="max-w-6xl mx-auto px-6 space-y-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>&copy; Booked & Confirmed. All rights reserved. Cancel anytime.</div>
+                <div class="flex items-center space-x-6">
+                    <button @click="activeModal = 'tos'" class="hover:text-white transition cursor-pointer">Terms of Service</button>
+                    <button @click="activeModal = 'privacy'" class="hover:text-white transition cursor-pointer">Privacy Policy</button>
+                </div>
+            </div>
+            <div class="text-[10px] text-neutral-600 border-t border-[#1a1a1a] pt-4 leading-relaxed">
+                <p>Automated SMS and email notifications comply with standard carrier opt-in protocols and TCPA requirements. Message & data rates may apply. Reply STOP to opt out of messaging at any time.</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- Alpine.js State and Submission Logic -->
+    <!-- Alpine.js State and Make.com Webhook Integration -->
     <script>
         function bookingApp() {
             return {
+                activeModal: null,
+                selectedTier: 'Pro ($99/mo)',
+                selectedUrl: 'https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01',
                 loading: false,
                 formData: {
                     clientName: '',
-                    email: '',
-                    serviceName: '',
-                    appointmentDate: ''
+                    businessName: '',
+                    email: ''
                 },
                 async submitLeadAndRedirect() {
                     this.loading = true;
                     
-                    // Active Make.com Webhook URL connected to Platform Client Log
+                    // Connected Make.com Webhook for Platform Client Log
                     const makeWebhookUrl = 'https://hook.us2.make.com/fx2duonl4damej9p4t3wsvr4i5bdenfo';
-                    // Replace with your actual Stripe Checkout Link when ready
-                    const stripeCheckoutUrl = 'YOUR_STRIPE_CHECKOUT_LINK_HERE';
 
                     try {
                         await fetch(makeWebhookUrl, {
@@ -207,9 +346,9 @@
                             },
                             body: JSON.stringify({
                                 clientName: this.formData.clientName,
+                                serviceName: this.selectedTier,
                                 email: this.formData.email,
-                                serviceName: this.formData.serviceName,
-                                appointmentDate: this.formData.appointmentDate,
+                                businessName: this.formData.businessName,
                                 status: 'Unpurchased Lead'
                             })
                         });
@@ -217,8 +356,8 @@
                         console.error('Lead sync warning:', error);
                     }
 
-                    // Redirect user instantly to Stripe checkout
-                    window.location.href = stripeCheckoutUrl;
+                    // Redirect user instantly to the selected Stripe Checkout link
+                    window.location.href = this.selectedUrl;
                 }
             }
         }
