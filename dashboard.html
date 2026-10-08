@@ -201,17 +201,29 @@
   </footer>
 
   <script>
+    // Automatically read the plan from the URL and configure package-specific features
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const plan = urlParams.get('plan');
+      
+      if (plan) {
+        const eyebrow = document.querySelector('.hero-banner .eyebrow');
+        if (eyebrow) {
+          eyebrow.textContent = `Stripe Subscription Active — ${plan.toUpperCase()} Tier`;
+        }
+      }
+    });
+
     function saveIntegration() {
       const platform = document.getElementById('platform').value;
       const calLink = document.getElementById('cal-link').value;
-      const syncExisting = document.getElementById('sync-existing').checked;
 
       if (!calLink) {
         alert('Please enter your integration link or URL.');
         return;
       }
 
-      // 1. Update Step 2 appearance to completed
+      // Update Step 2 appearance to completed
       const step2 = document.querySelector('.step-item.active');
       step2.classList.remove('active');
       step2.classList.add('completed');
@@ -223,7 +235,7 @@
         <p style="margin-bottom: 0;">Connected to <strong>${platform.toUpperCase()}</strong> (${calLink})</p>
       `;
 
-      // 2. Unlock Step 3 dynamically
+      // Unlock Step 3 dynamically
       const step3 = document.querySelector('.step-item.locked');
       step3.classList.remove('locked');
       step3.classList.add('active');
