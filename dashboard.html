@@ -74,7 +74,6 @@
     .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
     .card h2 { font-size: 1.15rem; font-weight: 700; letter-spacing: -.01em; }
     .badge { font-family: var(--font-mono); font-size: .7rem; font-weight: 500; color: var(--green); background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.2); padding: .2rem .65rem; border-radius: 999px; text-transform: uppercase; letter-spacing: .05em; }
-    .badge--muted { color: var(--muted); background: rgba(255,255,255,.04); border-color: var(--border); }
 
     .step-list { display: flex; flex-direction: column; gap: 1rem; }
     .step-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1.5rem; border: 1px solid var(--border); border-radius: .75rem; background: #161616; transition: border-color .2s; }
@@ -97,7 +96,7 @@
     .field select:focus, .field input:focus { outline: none; border-color: var(--green); }
 
     .checkbox-row { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; font-size: .85rem; color: var(--muted); }
-    .checkbox-row input { accent-color: var(--green); width: 1rem; height: 1rem; }
+    .checkbox-row input { accent-color: var(--green); width: 1rem; height: 1rem; flex: none; }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
@@ -128,7 +127,7 @@
     <div class="hero-banner">
       <span class="eyebrow">Stripe Subscription Active</span>
       <h1>Workspace Initialized</h1>
-      <p>Complete the configuration steps below to sync your booking schedule, automate client reminders, and activate real-time text confirmations.</p>
+      <p>Link your scheduling platform below to automate high-conversion SMS reminders, two-way confirmations, and instant waitlist refills.</p>
     </div>
 
     <div class="card">
@@ -153,7 +152,7 @@
           <div class="step-num">2</div>
           <div class="step-content" style="flex: 1; width: 100%;">
             <h3>Connect Scheduling Infrastructure</h3>
-            <p>Link your scheduling platform so we can listen for new appointments and automate reminders.</p>
+            <p>Select the tool where your clients book appointments so we can trigger SMS updates.</p>
             
             <div class="field-grid">
               <div class="field">
@@ -174,30 +173,3 @@
 
             <div class="checkbox-row">
               <input type="checkbox" id="sync-existing" checked>
-              <label for="sync-existing" style="margin: 0; color: var(--muted); text-transform: none; font-family: var(--font-sans);">Import upcoming appointments from the next 30 days automatically</label>
-            </div>
-
-            <button type="button" class="btn" onclick="alert('Scheduling integration saved successfully.')">Save Integration</button>
-          </div>
-        </div>
-
-        <!-- Step 3: Locked / Upcoming -->
-        <div class="step-item locked">
-          <div class="step-num">3</div>
-          <div class="step-content" style="opacity: 0.4;">
-            <h3>SMS &amp; Email Automation Test</h3>
-            <p style="margin-bottom: 0;">Unlocks automatically once your calendar provider is connected.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </main>
-
-  <footer class="site-footer">
-    Need help setting up your integration? Contact our implementation team at support@bookedconfirmed.com
-  </footer>
-
-</body>
-</html>
