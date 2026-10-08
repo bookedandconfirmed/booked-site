@@ -9,7 +9,6 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Booked &amp; Confirmed">
   <meta property="og:description" content="Make sure your clients actually show up. Automated reminders, confirmations, and waitlist backfill.">
-  <!-- TODO: add <meta property="og:image" content="https://your-domain/preview.png"> once you have a 1200x630 preview image. -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0A0A'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%2310B981'/%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -109,7 +108,7 @@
     .btn--block { width: 100%; }
     .btn[disabled] { opacity: .5; cursor: wait; }
 
-    /* ---------- Header ---------- */
+    /* ---------- Header & Hamburger Navbar ---------- */
     .site-header {
       position: fixed; inset: 0 0 auto 0; z-index: 50; height: var(--header-h);
       background: rgba(10,10,10,.9); backdrop-filter: blur(12px);
@@ -118,15 +117,48 @@
     .site-header .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; padding-inline: 1rem; }
     .brand { display: flex; align-items: center; gap: .6rem; font-family: var(--font-mono); font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: -.01em; }
     .brand-dot { width: .7rem; height: .7rem; border-radius: 50%; background: var(--green); }
-    .nav { display: flex; align-items: center; gap: 1.25rem; }
+    
+    .nav { display: none; align-items: center; gap: 1.25rem; }
     .nav a:not(.nav-cta) { font-size: .75rem; color: #a3a3a3; transition: color .2s ease; }
     .nav a:not(.nav-cta):hover { color: #fff; }
     .nav-cta { background: #fff; color: #000; font-weight: 600; font-size: .75rem; padding: .5rem 1rem; border-radius: .5rem; transition: background-color .2s ease; }
     .nav-cta:hover { background: #e5e5e5; }
-    @media (max-width: 640px) { .nav-extra { display: none; } .nav { gap: .9rem; } }
+    
+    @media (min-width: 641px) {
+      .nav { display: flex; }
+      .hamburger-btn { display: none; }
+    }
+
+    /* Hamburger Button */
+    .hamburger-btn {
+      display: flex; flex-direction: column; justify-content: space-between;
+      width: 24px; height: 18px; background: none; border: none; padding: 0; cursor: pointer; z-index: 60;
+    }
+    .hamburger-btn span {
+      display: block; width: 100%; height: 2px; background: #fff; border-radius: 2px; transition: transform .2s ease, opacity .2s ease;
+    }
+    .hamburger-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger-btn.is-active span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Mobile Drawer Overlay */
+    .mobile-drawer {
+      position: fixed; inset: var(--header-h) 0 0 0; background: rgba(10,10,10,.97); backdrop-filter: blur(16px);
+      z-index: 45; display: flex; flex-direction: column; padding: 2rem 1.5rem; gap: 1.5rem;
+      transform: translateX(100%); transition: transform .3s cubic-bezier(0.16, 1, 0.3, 1);
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-drawer.is-open { transform: translateX(0); }
+    .mobile-drawer a {
+      font-family: var(--font-mono); font-size: 1rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: #d4d4d4; padding: .75rem 0; border-bottom: 1px solid var(--border);
+    }
+    .mobile-drawer a:hover { color: var(--green-light); }
+    .mobile-drawer .btn { margin-top: 1rem; width: 100%; }
 
     /* ---------- Hero ---------- */
-    .hero { padding: 8rem 1.5rem 5rem; text-align: center; }
+    .hero { padding: 7rem 1.5rem 3rem; text-align: center; }
+    @media (min-width: 641px) { .hero { padding: 8rem 1.5rem 5rem; } }
     .hero h1 { font-size: clamp(2.25rem, 7.5vw, 4.5rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 1.5rem; }
     .hero h1 .wavy { text-decoration: underline wavy var(--green); text-decoration-thickness: 2px; text-underline-offset: .35em; }
     .hero p { font-size: clamp(1rem, 2.4vw, 1.25rem); color: var(--muted); max-width: 42rem; margin: 0 auto 2.5rem; line-height: 1.6; }
@@ -134,6 +166,8 @@
     @media (min-width: 640px) { .hero-actions { flex-direction: row; align-items: center; } }
 
     /* ---------- Example conversation ---------- */
+    .demo-section { padding: 2rem 1.5rem 4rem; }
+    @media (min-width: 641px) { .demo-section { padding: 4rem 1.5rem; } }
     .demo { display: grid; gap: 2rem; align-items: center; }
     @media (min-width: 768px) { .demo { grid-template-columns: 1fr 1fr; gap: 3rem; } }
     .demo-copy h2 { font-size: clamp(1.5rem, 3.5vw, 1.875rem); font-weight: 900; letter-spacing: -.02em; margin: .25rem 0 .75rem; }
@@ -243,7 +277,6 @@
     .field input:focus { outline: none; border-color: var(--green); }
     .field input:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
     
-    /* Checkbox field styling */
     .field-checkbox {
       display: flex;
       align-items: flex-start;
@@ -314,14 +347,32 @@
         <span class="brand-dot" aria-hidden="true"></span>
         <span>Booked &amp; Confirmed</span>
       </a>
+      
+      <!-- Desktop Navigation -->
       <nav class="nav" aria-label="Main">
         <a href="#calculator">Calculator</a>
-        <a class="nav-extra" href="#how-it-works">How it works</a>
-        <a class="nav-extra" href="#faq">FAQ</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#faq">FAQ</a>
         <a class="nav-cta" href="#pricing">Get started</a>
       </nav>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
+
+  <!-- Mobile Drawer Overlay Menu -->
+  <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+    <a href="#calculator" class="mobile-nav-link">Calculator</a>
+    <a href="#how-it-works" class="mobile-nav-link">How it works</a>
+    <a href="#faq" class="mobile-nav-link">FAQ</a>
+    <a href="#pricing" class="mobile-nav-link">Pricing</a>
+    <a href="#pricing" class="btn btn--light mobile-nav-link">Get started</a>
+  </div>
 
   <main id="main">
     <!-- Hero -->
@@ -340,7 +391,7 @@
     </section>
 
     <!-- Example conversation -->
-    <section class="section" aria-labelledby="demo-title">
+    <section class="demo-section" aria-labelledby="demo-title">
       <div class="wrap wrap--md demo">
         <div class="demo-copy">
           <span class="eyebrow eyebrow--green">See it in action</span>
@@ -557,7 +608,7 @@
               <label for="termsCheck">I agree to the <button type="button" onclick="document.getElementById('dialog-tos').showModal()" style="background:none;border:none;padding:0;color:var(--green-light);text-decoration:underline;cursor:pointer;font:inherit;">Terms of Service</button> and automated messaging policies.</label>
             </div>
 
-            <!-- Spam trap: real visitors never see or fill this -->
+            <!-- Spam trap -->
             <div class="trap" aria-hidden="true">
               <label for="fax">Leave this field empty</label>
               <input type="text" id="fax" name="fax" tabindex="-1" autocomplete="off">
@@ -610,6 +661,32 @@
     // Footer Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Mobile Hamburger Toggle Logic
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    
+    function toggleMobileMenu(forceClose = false) {
+      const isOpen = forceClose ? false : !mobileDrawer.classList.contains('is-open');
+      if (isOpen) {
+        mobileDrawer.classList.add('is-open');
+        hamburgerBtn.classList.add('is-active');
+        hamburgerBtn.setAttribute('aria-expanded', 'true');
+        mobileDrawer.setAttribute('aria-hidden', 'false');
+      } else {
+        mobileDrawer.classList.remove('is-open');
+        hamburgerBtn.classList.remove('is-active');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        mobileDrawer.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    hamburgerBtn.addEventListener('click', () => toggleMobileMenu());
+
+    // Close drawer when clicking any mobile nav link
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => toggleMobileMenu(true));
+    });
+
     // Plan & Stripe Link Management
     const plans = {
       starter: { name: 'Starter ($49/mo)', url: 'https://buy.stripe.com/fZu9ATclFcYT9bCdbsgQE00' },
@@ -624,7 +701,6 @@
       selectedPlanKey = key;
       document.getElementById('planLabel').textContent = plans[key].name;
       
-      // Update UI active card states
       document.querySelectorAll('[data-plan-card]').forEach(card => {
         if (card.getAttribute('data-plan-card') === key) {
           card.classList.add('is-selected');
@@ -634,12 +710,10 @@
       });
     }
 
-    // Attach click events to plan select buttons
     document.querySelectorAll('[data-plan]').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const planKey = btn.getAttribute('data-plan');
         setPlan(planKey);
-        // Smooth scroll down to onboarding form
         document.getElementById('onboarding').scrollIntoView({ behavior: 'smooth' });
       });
     });
@@ -675,20 +749,16 @@
     leadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Clear previous messages
       formMessage.textContent = '';
       formMessage.style.color = 'var(--muted)';
 
-      // Check Honeypot spam trap
       const trap = document.getElementById('fax').value;
       if (trap) {
-        // Silently fake success for bots
         submitText.textContent = 'Redirecting...';
         setTimeout(() => { window.location.href = plans[selectedPlanKey].url; }, 1000);
         return;
       }
 
-      // Validate Terms Checkbox
       const termsCheck = document.getElementById('termsCheck');
       if (!termsCheck.checked) {
         formMessage.textContent = 'Please accept the Terms of Service to continue.';
@@ -697,7 +767,6 @@
         return;
       }
 
-      // Collect field values
       const clientName = document.getElementById('clientName').value.trim();
       const businessName = document.getElementById('businessName').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -708,7 +777,6 @@
         return;
       }
 
-      // Prepare payload
       const payload = {
         clientName,
         businessName,
@@ -718,7 +786,6 @@
         timestamp: new Date().toISOString()
       };
 
-      // UI Loading State
       submitBtn.setAttribute('disabled', 'true');
       submitText.textContent = 'Securing workspace...';
       submitIcon.style.display = 'none';
@@ -734,7 +801,6 @@
 
       } catch (err) {}
 
-      // Redirect to correct Stripe Checkout Link
       submitText.textContent = 'Redirecting to checkout...';
       setTimeout(() => {
         window.location.href = plans[selectedPlanKey].url;
