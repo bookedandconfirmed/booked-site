@@ -3,151 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Booked and Confirmed</title>
+    <title>Welcome to Booked & Confirmed</title>
     <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --card-border: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --accent-cyan: #06b6d4;
+            --accent-cyan-hover: #22d3ee;
+            --accent-green: #10b981;
+            --badge-bg: #1e293b;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
+
+        /* Navbar matching main site */
         header {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 1rem 2rem;
+            background-color: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 1.25rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
+
         .logo {
-            font-weight: bold;
+            font-weight: 800;
             font-size: 1.25rem;
-            color: #4f46e5;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
         }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .btn-get-started {
+            background-color: var(--accent-cyan);
+            color: #000000;
+            padding: 0.6rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-get-started:hover {
+            background-color: var(--accent-cyan-hover);
+        }
+
+        /* Main Content Layout */
         main {
             flex-grow: 1;
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
             margin: 0 auto;
-            padding: 2.5rem 1rem;
+            padding: 3rem 1.5rem;
         }
-        .banner {
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            color: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+
+        .hero-banner {
+            text-align: center;
+            margin-bottom: 2.5rem;
         }
-        .banner h1 { margin-top: 0; font-size: 1.8rem; margin-bottom: 0.5rem; }
-        .banner p { margin: 0; color: #e0e7ff; font-size: 1.1rem; }
+
+        .hero-banner h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.025em;
+        }
+
+        .hero-banner p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Card Container */
         .card {
-            background: white;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 1rem;
-            border: 1px solid #e2e8f0;
             padding: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
+
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid var(--card-border);
         }
+
+        .card-header h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .card-header span {
+            color: var(--accent-cyan);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Steps */
         .step {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem;
+            padding: 1.25rem;
             border-radius: 0.75rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--card-border);
+            background-color: rgba(30, 41, 59, 0.4);
             margin-bottom: 1rem;
         }
+
         .step.active {
-            background-color: #eef2ff;
-            border-color: #6366f1;
+            border-color: var(--accent-cyan);
+            background-color: rgba(6, 182, 212, 0.05);
         }
+
         .step-left {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
+
         .badge {
-            width: 2rem;
-            height: 2rem;
+            width: 2.25rem;
+            height: 2.25rem;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 0.9rem;
         }
-        .badge.done { background-color: #d1fae5; color: #065f46; }
-        .badge.active { background-color: #4f46e5; color: white; }
-        .badge.locked { background-color: #e2e8f0; color: #64748b; }
-        .btn {
-            background-color: #4f46e5;
-            color: white;
+
+        .badge.done { background-color: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+        .badge.active { background-color: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); }
+        .badge.locked { background-color: var(--card-border); color: var(--text-muted); }
+
+        .step h3 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .step p {
+            margin: 0.25rem 0 0 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .btn-action {
+            background-color: var(--accent-cyan);
+            color: #000;
             border: none;
             padding: 0.6rem 1.2rem;
             border-radius: 0.5rem;
             font-weight: 600;
             cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            transition: background-color 0.2s;
         }
-        .btn:hover { background-color: #4338ca; }
-        .btn.locked { background-color: #f1f5f9; color: #94a3b8; cursor: not-allowed; }
-        .footer-text {
+
+        .btn-action:hover { background-color: var(--accent-cyan-hover); }
+
+        .btn-action.locked {
+            background-color: var(--card-border);
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        .status-done {
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 2rem;
             text-align: center;
-            margin-top: 2rem;
+            color: var(--text-muted);
             font-size: 0.9rem;
-            color: #64748b;
+            margin-top: auto;
         }
+
+        footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
+    <!-- Header matching your main site -->
     <header>
         <div class="logo">Booked & Confirmed</div>
-        <div style="font-size: 0.9rem; color: #475569;">
-            Logged in as <strong>client@example.com</strong>
-        </div>
+        <nav class="nav-links">
+            <a href="index.html#products">Products</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#pricing">Pricing</a>
+            <a href="index.html#support">Support</a>
+            <a href="#" class="btn-get-started">Dashboard Active</a>
+        </nav>
     </header>
 
     <main>
-        <div class="banner">
-            <h1>You're all set! 🎉</h1>
-            <p>Thank you for your purchase. Let's get your booking system up and running in under 2 minutes.</p>
+        <div class="hero-banner">
+            <h1>Welcome to Booked & Confirmed! 🚀</h1>
+            <p>Your payment was successfully verified via Stripe. Let's configure your workspace.</p>
         </div>
 
         <div class="card">
             <div class="card-header">
-                <div>
-                    <h2 style="margin: 0; font-size: 1.25rem;">Setup Checklist</h2>
-                    <p style="margin: 0.25rem 0 0 0; color: #64748b; font-size: 0.9rem;">Complete these steps to unlock your full dashboard.</p>
-                </div>
-                <div style="font-weight: 600; color: #4f46e5; font-size: 0.9rem;">
-                    1 of 3 completed
-                </div>
+                <h2>Setup Checklist</h2>
+                <span>1 of 3 completed</span>
             </div>
 
             <!-- Step 1 -->
-            <div class="step" style="background-color: #f8fafc;">
+            <div class="step">
                 <div class="step-left">
                     <div class="badge done">✓</div>
                     <div>
-                        <h3 style="margin: 0; font-size: 1rem; text-decoration: line-through; color: #64748b;">Account Created & Payment Verified</h3>
-                        <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: #64748b;">Stripe checkout successful.</p>
+                        <h3 style="text-decoration: line-through; color: var(--text-muted);">Account Created & Payment Verified</h3>
+                        <p>Stripe checkout session successfully completed for client@example.com.</p>
                     </div>
                 </div>
-                <span style="font-size: 0.75rem; font-weight: 600; background: #d1fae5; color: #065f46; padding: 0.25rem 0.75rem; border-radius: 999px;">Done</span>
+                <span class="status-done">Done</span>
             </div>
 
             <!-- Step 2 -->
@@ -155,30 +278,30 @@
                 <div class="step-left">
                     <div class="badge active">2</div>
                     <div>
-                        <h3 style="margin: 0; font-size: 1rem;">Connect Your Calendar</h3>
-                        <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: #475569;">Sync Google Calendar or Outlook to prevent double bookings.</p>
+                        <h3>Connect Your Calendar</h3>
+                        <p>Sync Google Calendar or Outlook to instantly prevent double bookings.</p>
                     </div>
                 </div>
-                <button class="btn">Connect Now</button>
+                <button class="btn-action">Connect Now</button>
             </div>
 
             <!-- Step 3 -->
-            <div class="step" style="opacity: 0.7;">
+            <div class="step" style="opacity: 0.6;">
                 <div class="step-left">
                     <div class="badge locked">3</div>
                     <div>
-                        <h3 style="margin: 0; font-size: 1rem;">Share Your Booking Link</h3>
-                        <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: #64748b;">Copy your link and send it to your first client.</p>
+                        <h3>Share Your Booking Link</h3>
+                        <p>Unlock this once your calendar is connected to start booking clients.</p>
                     </div>
                 </div>
-                <button class="btn locked" disabled>Locked</button>
+                <button class="btn-action locked" disabled>Locked</button>
             </div>
         </div>
-
-        <div class="footer-text">
-            Need help? Check out our <a href="#" style="color: #4f46e5; text-decoration: underline;">Quick Start Guide</a> or contact support.
-        </div>
     </main>
+
+    <footer>
+        Need assistance? Check out our <a href="#">Quick Start Guide</a> or reach out directly to support.
+    </footer>
 
 </body>
 </html>
