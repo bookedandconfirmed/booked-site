@@ -458,4 +458,266 @@
             <button type="button" class="btn btn--light btn--block" data-plan="pro" data-label="Pro ($99/mo)" data-url="https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01">Select Pro ($99)</button>
           </article>
 
-          <article class="card plan" data-plan-card="business">
+                    <article class="card plan" data-plan-card="business">
+            <span class="plan-name">Business</span>
+            <div class="plan-price">$199<small>/mo</small></div>
+            <p class="plan-desc">For multi-staff teams and high-volume scheduling.</p>
+            <ul class="plan-features">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited appointments</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Multi-staff roster support</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Custom reminders &amp; branding</li>
+            </ul>
+            <button type="button" class="btn btn--dark btn--block" data-plan="business" data-label="Business ($199/mo)" data-url="https://buy.stripe.com/7sY28rdpJ7Ez3Ri1sKgQE02">Select Business ($199)</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap wrap--sm">
+        <div class="section-head">
+          <span class="eyebrow">FAQ</span>
+          <h2 id="faq-title">Common questions</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Can I cancel anytime?</summary>
+            <p>Yes. Plans bill monthly, and you can cancel at any time to stop future billing.</p>
+          </details>
+          <details>
+            <summary>Who owns my client data?</summary>
+            <p>You do. You keep full ownership of your client lists and appointment records.</p>
+          </details>
+          <details>
+            <summary>Do you sell my data or client contact lists?</summary>
+            <p>No. We never sell, rent, or trade your business data or your clients' contact details.</p>
+          </details>
+          <details>
+            <summary>How do clients stop receiving texts?</summary>
+            <p>They reply STOP at any time to opt out of messaging.</p>
+          </details>
+          <!-- TODO: add answers about supported calendars, setup time, and what happens at your plan's appointment limit once those are finalized. -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Sign-up form -->
+    <section class="section" id="onboarding" aria-labelledby="signup-title">
+      <div class="wrap wrap--form">
+        <div class="card signup">
+          <span class="signup-step">Step 2 of 2</span>
+          <span class="eyebrow">Ready to start?</span>
+          <h2 id="signup-title">Set up your workspace</h2>
+          <p class="signup-plan">You're signing up for: <strong id="planLabel">Pro ($99/mo)</strong><a href="#pricing">Change plan</a></p>
+
+          <form id="leadForm" novalidate>
+            <div class="field">
+              <label for="clientName">Your full name</label>
+              <input type="text" id="clientName" name="clientName" autocomplete="name" required placeholder="Avery Lay">
+            </div>
+            <div class="field">
+              <label for="businessName">Business name / service</label>
+              <input type="text" id="businessName" name="businessName" autocomplete="organization" required placeholder="Avery's Studio">
+            </div>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" autocomplete="email" required placeholder="avery@example.com">
+            </div>
+
+            <div class="consent">
+              <input type="checkbox" id="agree" name="agree" required>
+              <label for="agree">I agree to the <button type="button" class="link-btn" data-open="dialog-tos">Terms of Service</button> and <button type="button" class="link-btn" data-open="dialog-privacy">Privacy Policy</button>.</label>
+            </div>
+
+            <!-- Spam trap: real visitors never see or fill this -->
+            <div class="trap" aria-hidden="true">
+              <label for="fax">Leave this field empty</label>
+              <input type="text" id="fax" name="fax" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button type="submit" class="btn btn--green btn--block" id="submitBtn">
+              <span id="submitText">Continue to payment</span>
+              <svg class="icon" id="submitIcon" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </button>
+            <p class="signup-hint" id="formMessage" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Legal dialogs -->
+  <dialog id="dialog-tos" aria-labelledby="tos-title">
+    <div class="dialog-body">
+      <h3 id="tos-title">Terms of Service</h3>
+      <p><strong>1. Services:</strong> Booked &amp; Confirmed provides automated appointment scheduling, confirmation workflows, and calendar management.</p>
+      <p><strong>2. Ownership:</strong> You retain full ownership of all data, client rosters, and appointment records processed through your account.</p>
+      <p><strong>3. Billing &amp; cancellation:</strong> Subscriptions bill monthly. You may cancel at any time by notifying support to halt future billing.</p>
+    </div>
+    <form method="dialog" class="dialog-foot"><button class="btn">Close</button></form>
+  </dialog>
+
+  <dialog id="dialog-privacy" aria-labelledby="privacy-title">
+    <div class="dialog-body">
+      <h3 id="privacy-title">Privacy Policy</h3>
+      <p><strong>1. Data protection:</strong> We protect your business information and customer data with industry-standard encryption practices.</p>
+      <p><strong>2. No data selling:</strong> We do not sell, rent, or trade your private business data or client contact lists to external advertisers.</p>
+      <p><strong>3. Compliance:</strong> We follow standard data-handling guidelines and maintain transparent opt-out practices for messaging.</p>
+    </div>
+    <form method="dialog" class="dialog-foot"><button class="btn">Close</button></form>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="wrap wrap--lg">
+      <div class="footer-row">
+        <div>&copy; <span id="year">2026</span> Booked &amp; Confirmed. All rights reserved. Cancel anytime.</div>
+        <div class="footer-links">
+          <button type="button" data-open="dialog-tos">Terms of Service</button>
+          <button type="button" data-open="dialog-privacy">Privacy Policy</button>
+        </div>
+      </div>
+      <p class="legal-note">Automated SMS and email notifications comply with standard carrier opt-in protocols and TCPA requirements. Message &amp; data rates may apply. Reply STOP to opt out of messaging at any time.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---------- Settings ---------- */
+      var WEBHOOK_URL = 'https://hook.us2.make.com/fx2duonl4damej9p4t3wsvr4i5bdenfo';
+      var WEBHOOK_TIMEOUT_MS = 4000;
+      var PRO_PRICE = 99;
+
+      var $ = function (id) { return document.getElementById(id); };
+      var money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+      /* ---------- Calculator ---------- */
+      var count = $('count'), ticket = $('ticket');
+
+      function updateCalculator() {
+        var c = Number(count.value);
+        var t = Number(ticket.value);
+        var monthly = c * t * 4;
+        $('countOut').textContent = c;
+        $('ticketOut').textContent = money.format(t);
+        $('monthly').textContent = money.format(monthly);
+
+        var note = $('ratio');
+        if (monthly === 0) {
+          note.textContent = 'Move the sliders to see your estimate.';
+        } else if (monthly >= PRO_PRICE) {
+          var times = monthly / PRO_PRICE;
+          note.textContent = 'About ' + (times < 10 ? times.toFixed(1) : Math.round(times)) + '\u00D7 the cost of the Pro plan.';
+        } else {
+          note.textContent = 'Covers ' + Math.round((monthly / PRO_PRICE) * 100) + '% of the Pro plan cost.';
+        }
+      }
+      count.addEventListener('input', updateCalculator);
+      ticket.addEventListener('input', updateCalculator);
+      updateCalculator();
+
+      /* ---------- Plan selection ---------- */
+      var planButtons = document.querySelectorAll('[data-plan]');
+      var selected = { key: 'pro', label: 'Pro ($99/mo)', url: document.querySelector('[data-plan="pro"]').dataset.url };
+
+      function selectPlan(btn) {
+        selected = { key: btn.dataset.plan, label: btn.dataset.label, url: btn.dataset.url };
+        $('planLabel').textContent = selected.label;
+        document.querySelectorAll('[data-plan-card]').forEach(function (card) {
+          card.classList.toggle('is-selected', card.dataset.planCard === selected.key);
+        });
+        planButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+      }
+
+      planButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          selectPlan(btn);
+          $('onboarding').scrollIntoView();
+          $('clientName').focus({ preventScroll: true });
+        });
+      });
+
+      /* ---------- Lead capture, then Stripe checkout ---------- */
+      var form = $('leadForm');
+      var submitBtn = $('submitBtn');
+      var message = $('formMessage');
+
+      function setLoading(isLoading) {
+        submitBtn.disabled = isLoading;
+        $('submitText').textContent = isLoading ? 'Processing...' : 'Continue to payment';
+        $('submitIcon').style.display = isLoading ? 'none' : '';
+      }
+
+      function newLeadId() {
+        var raw = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random();
+        return raw.replace(/[^a-zA-Z0-9]/g, '').slice(0, 40);
+      }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        message.textContent = '';
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        if (form.elements.fax.value) { return; } // spam trap filled: stop silently
+
+        setLoading(true);
+
+        var leadId = newLeadId();
+        var email = form.elements.email.value.trim();
+        var payload = {
+          leadId: leadId,
+          clientName: form.elements.clientName.value.trim(),
+          businessName: form.elements.businessName.value.trim(),
+          email: email,
+          serviceName: selected.label,
+          status: 'Unpurchased Lead',
+          termsAccepted: true,
+          submittedAt: new Date().toISOString()
+        };
+
+        var controller = new AbortController();
+        var timer = setTimeout(function () { controller.abort(); }, WEBHOOK_TIMEOUT_MS);
+
+        // A failed lead log should never block someone from paying, so we always continue to Stripe.
+        fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+          keepalive: true
+        })
+          .catch(function (err) { console.warn('Lead log failed:', err); })
+          .then(function () {
+            clearTimeout(timer);
+            var checkout = new URL(selected.url);
+            checkout.searchParams.set('prefilled_email', email);
+            checkout.searchParams.set('client_reference_id', leadId);
+            window.location.href = checkout.toString();
+          });
+      });
+
+      // If someone comes back from Stripe with the Back button, reset the button.
+      window.addEventListener('pageshow', function () { setLoading(false); });
+
+      /* ---------- Legal dialogs ---------- */
+      document.querySelectorAll('[data-open]').forEach(function (btn) {
+        btn.addEventListener('click', function () { $(btn.dataset.open).showModal(); });
+      });
+      document.querySelectorAll('dialog').forEach(function (dlg) {
+        dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); } });
+      });
+
+      /* ---------- Footer year ---------- */
+      $('year').textContent = new Date().getFullYear();
+
+      // Start with Pro highlighted, matching the default plan.
+      selectPlan(document.querySelector('[data-plan="pro"]'));
+    })();
+  </script>
+</body>
+</html>
