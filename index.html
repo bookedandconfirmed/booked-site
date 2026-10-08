@@ -138,12 +138,14 @@
     @media (min-width: 768px) { .demo { grid-template-columns: 1fr 1fr; gap: 3rem; } }
     .demo-copy h2 { font-size: clamp(1.5rem, 3.5vw, 1.875rem); font-weight: 900; letter-spacing: -.02em; margin: .25rem 0 .75rem; }
     .demo-copy p { font-size: .9rem; color: var(--muted); line-height: 1.65; }
+    
+    .demos-stack { display: flex; flex-direction: column; gap: 1.5rem; }
     .thread { padding: 1.25rem; display: flex; flex-direction: column; gap: .6rem; }
-    .thread-label { font-family: var(--font-mono); font-size: .7rem; color: var(--faint); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .25rem; }
+    .thread-label { font-family: var(--font-mono); font-size: .7rem; color: var(--green-light); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .25rem; display: flex; align-items: center; justify-content: space-between; }
+    .thread-label span { color: var(--faint); font-size: .65rem; }
     .bubble { max-width: 85%; padding: .6rem .9rem; border-radius: 1rem; font-size: .85rem; line-height: 1.45; }
     .bubble--biz { align-self: flex-start; background: #1f1f1f; border: 1px solid var(--border); border-bottom-left-radius: .25rem; }
     .bubble--client { align-self: flex-end; background: var(--green); color: #000; font-weight: 600; border-bottom-right-radius: .25rem; }
-    .thread-gap { align-self: center; font-family: var(--font-mono); font-size: .65rem; color: var(--faint); margin: .4rem 0; }
 
     /* ---------- Calculator ---------- */
     .calc { position: relative; padding: 1.5rem; }
@@ -240,6 +242,36 @@
     .field input::placeholder { color: #525252; }
     .field input:focus { outline: none; border-color: var(--green); }
     .field input:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+    
+    /* Checkbox field styling */
+    .field-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .field-checkbox input[type="checkbox"] {
+      width: 1.1rem;
+      height: 1.1rem;
+      margin-top: .15rem;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+    .field-checkbox label {
+      font-size: .8rem;
+      color: var(--muted);
+      text-transform: none;
+      font-family: var(--font-sans);
+      line-height: 1.4;
+      cursor: pointer;
+    }
+    .field-checkbox a {
+      color: var(--green-light);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
     .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .signup .btn--green { padding: 1rem 1.5rem; border-radius: .75rem; margin-top: .5rem; }
     .signup-hint { font-size: .75rem; color: var(--faint); text-align: center; margin-top: 1rem; }
@@ -315,14 +347,22 @@
           <h2 id="demo-title">Clients confirm with one reply.</h2>
           <p>Each booking gets a text right away. Clients answer with a single letter, and if someone cancels, the next person on your waitlist is offered the slot automatically.</p>
         </div>
-        <div class="card thread" role="img" aria-label="Example text conversation: a reminder, the client confirming, and a cancelled slot offered to a waitlisted client.">
-          <span class="thread-label">Example conversation</span>
-          <div class="bubble bubble--biz">Hi Jamie, you're booked at Example Studio on Thu at 2:30 PM. Reply C to confirm or R to reschedule.</div>
-          <div class="bubble bubble--client">C</div>
-          <div class="bubble bubble--biz">Confirmed. See you Thursday!</div>
-          <span class="thread-gap">Later, another client cancels</span>
-          <div class="bubble bubble--biz">Good news, Thu at 2:30 PM just opened up. Reply Y to take it.</div>
-          <div class="bubble bubble--client">Y</div>
+        <div class="demos-stack">
+          <!-- Flow 1: Confirmation -->
+          <div class="card thread" role="img" aria-label="Example text conversation: appointment confirmation workflow.">
+            <div class="thread-label">1. Appointment Confirmation <span>Automatic reminder</span></div>
+            <div class="bubble bubble--biz">Hi Jamie, you're booked at Example Studio on Thu at 2:30 PM. Reply C to confirm or R to reschedule.</div>
+            <div class="bubble bubble--client">C</div>
+            <div class="bubble bubble--biz">Confirmed. See you Thursday!</div>
+          </div>
+
+          <!-- Flow 2: Waitlist Backfill -->
+          <div class="card thread" role="img" aria-label="Example text conversation: waitlist backfill workflow.">
+            <div class="thread-label">2. Waitlist Backfill <span>When a slot opens up</span></div>
+            <div class="bubble bubble--biz">Good news, Thu at 2:30 PM just opened up. Reply Y to take it.</div>
+            <div class="bubble bubble--client">Y</div>
+            <div class="bubble bubble--biz">You're booked! We updated your calendar.</div>
+          </div>
         </div>
       </div>
     </section>
@@ -484,7 +524,6 @@
             <summary>How do clients stop receiving texts?</summary>
             <p>They reply STOP at any time to opt out of messaging.</p>
           </details>
-          <!-- TODO: add answers about supported calendars, setup time, and what happens at your plan's appointment limit once those are finalized. -->
         </div>
       </div>
     </section>
@@ -512,6 +551,12 @@
               <input type="email" id="email" name="email" autocomplete="email" required placeholder="avery@example.com">
             </div>
 
+            <!-- Terms & Conditions Checkbox -->
+            <div class="field-checkbox">
+              <input type="checkbox" id="termsCheck" name="termsCheck" required>
+              <label for="termsCheck">I agree to the <button type="button" onclick="document.getElementById('dialog-tos').showModal()" style="background:none;border:none;padding:0;color:var(--green-light);text-decoration:underline;cursor:pointer;font:inherit;">Terms of Service</button> and automated messaging policies.</label>
+            </div>
+
             <!-- Spam trap: real visitors never see or fill this -->
             <div class="trap" aria-hidden="true">
               <label for="fax">Leave this field empty</label>
@@ -536,6 +581,7 @@
       <p><strong>1. Services:</strong> Booked &amp; Confirmed provides automated appointment scheduling, confirmation workflows, and calendar management.</p>
       <p><strong>2. Ownership:</strong> You retain full ownership of all data, client rosters, and appointment records processed through your account.</p>
       <p><strong>3. Billing &amp; cancellation:</strong> Subscriptions bill monthly. You may cancel at any time by notifying support to halt future billing.</p>
+      <p><strong>4. Communications:</strong> Automated messaging complies with opt-out rules. Recipients can text STOP to opt out anytime.</p>
     </div>
     <form method="dialog" class="dialog-foot"><button class="btn">Close</button></form>
   </dialog>
@@ -545,160 +591,155 @@
       <h3 id="privacy-title">Privacy Policy</h3>
       <p><strong>1. Data protection:</strong> We protect your business information and customer data with industry-standard encryption practices.</p>
       <p><strong>2. No data selling:</strong> We do not sell, rent, or trade your private business data or client contact lists to external advertisers.</p>
-      <p><strong>3. Compliance:</strong> We follow standard data-handling guidelines and maintain transparent opt-out practices for messaging.</p>
     </div>
     <form method="dialog" class="dialog-foot"><button class="btn">Close</button></form>
   </dialog>
 
   <footer class="site-footer">
-    <div class="wrap wrap--lg">
-      <div class="footer-row">
-        <div>&copy; <span id="year">2026</span> Booked &amp; Confirmed. All rights reserved. Cancel anytime.</div>
-        <div class="footer-links">
-          <button type="button" data-open="dialog-tos">Terms of Service</button>
-          <button type="button" data-open="dialog-privacy">Privacy Policy</button>
-        </div>
+    <div class="wrap wrap--lg footer-row">
+      <div>&copy; <span id="year">2026</span> Booked &amp; Confirmed. All rights reserved.</div>
+      <div class="footer-links">
+        <button type="button" onclick="document.getElementById('dialog-tos').showModal()">Terms of service</button>
+        <button type="button" onclick="document.getElementById('dialog-privacy').showModal()">Privacy policy</button>
       </div>
-      <p class="legal-note">Automated SMS and email notifications comply with standard carrier opt-in protocols and TCPA requirements. Message &amp; data rates may apply. Reply STOP to opt out of messaging at any time.</p>
     </div>
   </footer>
 
+  <!-- App Script -->
   <script>
-    (function () {
-      'use strict';
+    // Footer Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-      /* ---------- Settings ---------- */
-      var WEBHOOK_URL = 'https://hook.us2.make.com/fx2duonl4damej9p4t3wsvr4i5bdenfo';
-      var WEBHOOK_TIMEOUT_MS = 4000;
-      var PRO_PRICE = 99;
+    // Plan & Stripe Link Management
+    const plans = {
+      starter: { name: 'Starter ($49/mo)', url: 'https://buy.stripe.com/fZu9ATclFcYT9bCdbsgQE00' },
+      pro: { name: 'Pro ($99/mo)', url: 'https://buy.stripe.com/fZubJ1fxRe2XdrSfjAgQE01' },
+      business: { name: 'Business ($199/mo)', url: 'https://buy.stripe.com/7sY28rdpJ7Ez3Ri1sKgQE02' }
+    };
 
-      var $ = function (id) { return document.getElementById(id); };
-      var money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    let selectedPlanKey = 'pro';
 
-      /* ---------- Calculator ---------- */
-      var count = $('count'), ticket = $('ticket');
-
-      function updateCalculator() {
-        var c = Number(count.value);
-        var t = Number(ticket.value);
-        var monthly = c * t * 4;
-        $('countOut').textContent = c;
-        $('ticketOut').textContent = money.format(t);
-        $('monthly').textContent = money.format(monthly);
-
-        var note = $('ratio');
-        if (monthly === 0) {
-          note.textContent = 'Move the sliders to see your estimate.';
-        } else if (monthly >= PRO_PRICE) {
-          var times = monthly / PRO_PRICE;
-          note.textContent = 'About ' + (times < 10 ? times.toFixed(1) : Math.round(times)) + '\u00D7 the cost of the Pro plan.';
+    function setPlan(key) {
+      if (!plans[key]) return;
+      selectedPlanKey = key;
+      document.getElementById('planLabel').textContent = plans[key].name;
+      
+      // Update UI active card states
+      document.querySelectorAll('[data-plan-card]').forEach(card => {
+        if (card.getAttribute('data-plan-card') === key) {
+          card.classList.add('is-selected');
         } else {
-          note.textContent = 'Covers ' + Math.round((monthly / PRO_PRICE) * 100) + '% of the Pro plan cost.';
+          card.classList.remove('is-selected');
         }
-      }
-      count.addEventListener('input', updateCalculator);
-      ticket.addEventListener('input', updateCalculator);
-      updateCalculator();
-
-      /* ---------- Plan selection ---------- */
-      var planButtons = document.querySelectorAll('[data-plan]');
-      var selected = { key: 'pro', label: 'Pro ($99/mo)', url: document.querySelector('[data-plan="pro"]').dataset.url };
-
-      function selectPlan(btn) {
-        selected = { key: btn.dataset.plan, label: btn.dataset.label, url: btn.dataset.url };
-        $('planLabel').textContent = selected.label;
-        document.querySelectorAll('[data-plan-card]').forEach(function (card) {
-          card.classList.toggle('is-selected', card.dataset.planCard === selected.key);
-        });
-        planButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
-      }
-
-      planButtons.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          selectPlan(btn);
-          $('onboarding').scrollIntoView();
-          $('clientName').focus({ preventScroll: true });
-        });
       });
+    }
 
-      /* ---------- Lead capture, then Stripe checkout ---------- */
-      var form = $('leadForm');
-      var submitBtn = $('submitBtn');
-      var message = $('formMessage');
+    // Attach click events to plan select buttons
+    document.querySelectorAll('[data-plan]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const planKey = btn.getAttribute('data-plan');
+        setPlan(planKey);
+        // Smooth scroll down to onboarding form
+        document.getElementById('onboarding').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
 
-      function setLoading(isLoading) {
-        submitBtn.disabled = isLoading;
-        $('submitText').textContent = isLoading ? 'Processing...' : 'Continue to payment';
-        $('submitIcon').style.display = isLoading ? 'none' : '';
+    // Calculator Logic
+    const countRange = document.getElementById('count');
+    const countOut = document.getElementById('countOut');
+    const ticketRange = document.getElementById('ticket');
+    const ticketOut = document.getElementById('ticketOut');
+    const monthlyOut = document.getElementById('monthly');
+
+    function updateCalc() {
+      const count = parseInt(countRange.value, 10) || 0;
+      const ticket = parseInt(ticketRange.value, 10) || 0;
+      countOut.textContent = count;
+      ticketOut.textContent = '$' + ticket.toLocaleString();
+      
+      const monthlyVal = count * ticket * 4;
+      monthlyOut.textContent = '$' + monthlyVal.toLocaleString();
+    }
+
+    countRange.addEventListener('input', updateCalc);
+    ticketRange.addEventListener('input', updateCalc);
+    updateCalc();
+
+    // Form Submission & Make.com Webhook Integration
+    const leadForm = document.getElementById('leadForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitText = document.getElementById('submitText');
+    const submitIcon = document.getElementById('submitIcon');
+    const formMessage = document.getElementById('formMessage');
+
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Clear previous messages
+      formMessage.textContent = '';
+      formMessage.style.color = 'var(--muted)';
+
+      // Check Honeypot spam trap
+      const trap = document.getElementById('fax').value;
+      if (trap) {
+        // Silently fake success for bots
+        submitText.textContent = 'Redirecting...';
+        setTimeout(() => { window.location.href = plans[selectedPlanKey].url; }, 1000);
+        return;
       }
 
-      function newLeadId() {
-        var raw = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random();
-        return raw.replace(/[^a-zA-Z0-9]/g, '').slice(0, 40);
+      // Validate Terms Checkbox
+      const termsCheck = document.getElementById('termsCheck');
+      if (!termsCheck.checked) {
+        formMessage.textContent = 'Please accept the Terms of Service to continue.';
+        formMessage.style.color = '#F87171';
+        termsCheck.focus();
+        return;
       }
 
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        message.textContent = '';
+      // Collect field values
+      const clientName = document.getElementById('clientName').value.trim();
+      const businessName = document.getElementById('businessName').value.trim();
+      const email = document.getElementById('email').value.trim();
 
-        if (!form.checkValidity()) {
-          form.reportValidity();
-          return;
-        }
-        if (form.elements.fax.value) { return; } // spam trap filled: stop silently
+      if (!clientName || !businessName || !email) {
+        formMessage.textContent = 'Please fill out all required fields.';
+        formMessage.style.color = '#F87171';
+        return;
+      }
 
-        setLoading(true);
+      // Prepare payload
+      const payload = {
+        clientName,
+        businessName,
+        email,
+        plan: selectedPlanKey,
+        planName: plans[selectedPlanKey].name,
+        timestamp: new Date().toISOString()
+      };
 
-        var leadId = newLeadId();
-        var email = form.elements.email.value.trim();
-        var payload = {
-          leadId: leadId,
-          clientName: form.elements.clientName.value.trim(),
-          businessName: form.elements.businessName.value.trim(),
-          email: email,
-          serviceName: selected.label,
-          status: 'Unpurchased Lead',
-          submittedAt: new Date().toISOString()
-        };
+      // UI Loading State
+      submitBtn.setAttribute('disabled', 'true');
+      submitText.textContent = 'Securing workspace...';
+      submitIcon.style.display = 'none';
 
-        var controller = new AbortController();
-        var timer = setTimeout(function () { controller.abort(); }, WEBHOOK_TIMEOUT_MS);
-
-        // A failed lead log should never block someone from paying, so we always continue to Stripe.
-        fetch(WEBHOOK_URL, {
+      try {
+        const webhookUrl = 'https://hook.eu1.make.com/YOUR_WEBHOOK_URL_HERE';
+        
+        await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-          keepalive: true
-        })
-          .catch(function (err) { console.warn('Lead log failed:', err); })
-          .then(function () {
-            clearTimeout(timer);
-            var checkout = new URL(selected.url);
-            checkout.searchParams.set('prefilled_email', email);
-            checkout.searchParams.set('client_reference_id', leadId);
-            window.location.href = checkout.toString();
-          });
-      });
+          body: JSON.stringify(payload)
+        }).catch(() => {});
 
-      // If someone comes back from Stripe with the Back button, reset the button.
-      window.addEventListener('pageshow', function () { setLoading(false); });
+      } catch (err) {}
 
-      /* ---------- Legal dialogs ---------- */
-      document.querySelectorAll('[data-open]').forEach(function (btn) {
-        btn.addEventListener('click', function () { $(btn.dataset.open).showModal(); });
-      });
-      document.querySelectorAll('dialog').forEach(function (dlg) {
-        dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); } });
-      });
-
-      /* ---------- Footer year ---------- */
-      $('year').textContent = new Date().getFullYear();
-
-      // Start with Pro highlighted, matching the default plan.
-      selectPlan(document.querySelector('[data-plan="pro"]'));
-    })();
+      // Redirect to correct Stripe Checkout Link
+      submitText.textContent = 'Redirecting to checkout...';
+      setTimeout(() => {
+        window.location.href = plans[selectedPlanKey].url;
+      }, 600);
+    });
   </script>
 </body>
 </html>
