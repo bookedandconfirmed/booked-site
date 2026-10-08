@@ -144,6 +144,8 @@
     .bubble--biz { align-self: flex-start; background: #1f1f1f; border: 1px solid var(--border); border-bottom-left-radius: .25rem; }
     .bubble--client { align-self: flex-end; background: var(--green); color: #000; font-weight: 600; border-bottom-right-radius: .25rem; }
     .thread-gap { align-self: center; font-family: var(--font-mono); font-size: .65rem; color: var(--faint); margin: .4rem 0; }
+    .thread-who { align-self: flex-start; font-size: .8rem; font-weight: 600; color: #fff; margin-top: .25rem; }
+    .thread-divider { border: 0; border-top: 1px solid var(--border); width: 100%; margin: .9rem 0 .4rem; }
 
     /* ---------- Calculator ---------- */
     .calc { position: relative; padding: 1.5rem; }
@@ -244,6 +246,10 @@
     .signup .btn--green { padding: 1rem 1.5rem; border-radius: .75rem; margin-top: .5rem; }
     .signup-hint { font-size: .75rem; color: var(--faint); text-align: center; margin-top: 1rem; }
 
+    .consent { display: flex; align-items: flex-start; gap: .6rem; margin-bottom: 1.25rem; font-size: .8rem; color: var(--muted); line-height: 1.5; }
+    .consent input { width: 1.1rem; height: 1.1rem; margin-top: .15rem; accent-color: var(--green); flex: none; }
+    .link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--green-light); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
     /* ---------- Legal dialogs ---------- */
     dialog { padding: 0; width: calc(100% - 3rem); max-width: 32rem; max-height: 85vh; background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 1rem; }
     dialog::backdrop { background: rgba(0,0,0,.8); backdrop-filter: blur(4px); }
@@ -315,14 +321,21 @@
           <h2 id="demo-title">Clients confirm with one reply.</h2>
           <p>Each booking gets a text right away. Clients answer with a single letter, and if someone cancels, the next person on your waitlist is offered the slot automatically.</p>
         </div>
-        <div class="card thread" role="img" aria-label="Example text conversation: a reminder, the client confirming, and a cancelled slot offered to a waitlisted client.">
-          <span class="thread-label">Example conversation</span>
+        <div class="card thread" role="img" aria-label="Two example text conversations. In the first, a client named Jamie confirms an appointment. In the second, a different client named Sam, who is on the waitlist, is offered a slot that another client cancelled.">
+          <span class="thread-label">Example 1: a client confirms</span>
+          <span class="thread-who">Jamie</span>
           <div class="bubble bubble--biz">Hi Jamie, you're booked at Example Studio on Thu at 2:30 PM. Reply C to confirm or R to reschedule.</div>
           <div class="bubble bubble--client">C</div>
           <div class="bubble bubble--biz">Confirmed. See you Thursday!</div>
-          <span class="thread-gap">Later, another client cancels</span>
-          <div class="bubble bubble--biz">Good news, Thu at 2:30 PM just opened up. Reply Y to take it.</div>
+
+          <hr class="thread-divider">
+
+          <span class="thread-label">Example 2: a cancelled slot gets refilled</span>
+          <span class="thread-gap">Another client cancels their Thu 4:00 PM appointment</span>
+          <span class="thread-who">Sam, on your waitlist</span>
+          <div class="bubble bubble--biz">Good news, Thu at 4:00 PM just opened up at Example Studio. Reply Y to take it.</div>
           <div class="bubble bubble--client">Y</div>
+          <div class="bubble bubble--biz">It's yours! See you Thursday at 4:00 PM.</div>
         </div>
       </div>
     </section>
@@ -446,259 +459,3 @@
           </article>
 
           <article class="card plan" data-plan-card="business">
-            <span class="plan-name">Business</span>
-            <div class="plan-price">$199<small>/mo</small></div>
-            <p class="plan-desc">For multi-staff teams and high-volume scheduling.</p>
-            <ul class="plan-features">
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Unlimited appointments</li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Multi-staff roster support</li>
-              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Custom reminders &amp; branding</li>
-            </ul>
-            <button type="button" class="btn btn--dark btn--block" data-plan="business" data-label="Business ($199/mo)" data-url="https://buy.stripe.com/7sY28rdpJ7Ez3Ri1sKgQE02">Select Business ($199)</button>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section" id="faq" aria-labelledby="faq-title">
-      <div class="wrap wrap--sm">
-        <div class="section-head">
-          <span class="eyebrow">FAQ</span>
-          <h2 id="faq-title">Common questions</h2>
-        </div>
-        <div class="faq">
-          <details>
-            <summary>Can I cancel anytime?</summary>
-            <p>Yes. Plans bill monthly, and you can cancel at any time to stop future billing.</p>
-          </details>
-          <details>
-            <summary>Who owns my client data?</summary>
-            <p>You do. You keep full ownership of your client lists and appointment records.</p>
-          </details>
-          <details>
-            <summary>Do you sell my data or client contact lists?</summary>
-            <p>No. We never sell, rent, or trade your business data or your clients' contact details.</p>
-          </details>
-          <details>
-            <summary>How do clients stop receiving texts?</summary>
-            <p>They reply STOP at any time to opt out of messaging.</p>
-          </details>
-          <!-- TODO: add answers about supported calendars, setup time, and what happens at your plan's appointment limit once those are finalized. -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Sign-up form -->
-    <section class="section" id="onboarding" aria-labelledby="signup-title">
-      <div class="wrap wrap--form">
-        <div class="card signup">
-          <span class="signup-step">Step 2 of 2</span>
-          <span class="eyebrow">Ready to start?</span>
-          <h2 id="signup-title">Set up your workspace</h2>
-          <p class="signup-plan">You're signing up for: <strong id="planLabel">Pro ($99/mo)</strong><a href="#pricing">Change plan</a></p>
-
-          <form id="leadForm" novalidate>
-            <div class="field">
-              <label for="clientName">Your full name</label>
-              <input type="text" id="clientName" name="clientName" autocomplete="name" required placeholder="Avery Lay">
-            </div>
-            <div class="field">
-              <label for="businessName">Business name / service</label>
-              <input type="text" id="businessName" name="businessName" autocomplete="organization" required placeholder="Avery's Studio">
-            </div>
-            <div class="field">
-              <label for="email">Email address</label>
-              <input type="email" id="email" name="email" autocomplete="email" required placeholder="avery@example.com">
-            </div>
-
-            <!-- Spam trap: real visitors never see or fill this -->
-            <div class="trap" aria-hidden="true">
-              <label for="fax">Leave this field empty</label>
-              <input type="text" id="fax" name="fax" tabindex="-1" autocomplete="off">
-            </div>
-
-            <button type="submit" class="btn btn--green btn--block" id="submitBtn">
-              <span id="submitText">Continue to payment</span>
-              <svg class="icon" id="submitIcon" aria-hidden="true"><use href="#i-arrow"/></svg>
-            </button>
-            <p class="signup-hint" id="formMessage" role="status"></p>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Legal dialogs -->
-  <dialog id="dialog-tos" aria-labelledby="tos-title">
-    <div class="dialog-body">
-      <h3 id="tos-title">Terms of Service</h3>
-      <p><strong>1. Services:</strong> Booked &amp; Confirmed provides automated appointment scheduling, confirmation workflows, and calendar management.</p>
-      <p><strong>2. Ownership:</strong> You retain full ownership of all data, client rosters, and appointment records processed through your account.</p>
-      <p><strong>3. Billing &amp; cancellation:</strong> Subscriptions bill monthly. You may cancel at any time by notifying support to halt future billing.</p>
-    </div>
-    <form method="dialog" class="dialog-foot"><button class="btn">Close</button></form>
-  </dialog>
-
-  <dialog id="dialog-privacy" aria-labelledby="privacy-title">
-    <div class="dialog-body">
-      <h3 id="privacy-title">Privacy Policy</h3>
-      <p><strong>1. Data protection:</strong> We protect your business information and customer data with industry-standard encryption practices.</p>
-      <p><strong>2. No data selling:</strong> We do not sell, rent, or trade your private business data or client contact lists to external advertisers.</p>
-      <p><strong>3. Compliance:</strong> We follow standard data-handling guidelines and maintain transparent opt-out practices for messaging.</p>
-    </div>
-    <form method="dialog" class="dialog-foot"><button class="btn">Close</button></form>
-  </dialog>
-
-  <footer class="site-footer">
-    <div class="wrap wrap--lg">
-      <div class="footer-row">
-        <div>&copy; <span id="year">2026</span> Booked &amp; Confirmed. All rights reserved. Cancel anytime.</div>
-        <div class="footer-links">
-          <button type="button" data-open="dialog-tos">Terms of Service</button>
-          <button type="button" data-open="dialog-privacy">Privacy Policy</button>
-        </div>
-      </div>
-      <p class="legal-note">Automated SMS and email notifications comply with standard carrier opt-in protocols and TCPA requirements. Message &amp; data rates may apply. Reply STOP to opt out of messaging at any time.</p>
-    </div>
-  </footer>
-
-  <script>
-    (function () {
-      'use strict';
-
-      /* ---------- Settings ---------- */
-      var WEBHOOK_URL = 'https://hook.us2.make.com/fx2duonl4damej9p4t3wsvr4i5bdenfo';
-      var WEBHOOK_TIMEOUT_MS = 4000;
-      var PRO_PRICE = 99;
-
-      var $ = function (id) { return document.getElementById(id); };
-      var money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-
-      /* ---------- Calculator ---------- */
-      var count = $('count'), ticket = $('ticket');
-
-      function updateCalculator() {
-        var c = Number(count.value);
-        var t = Number(ticket.value);
-        var monthly = c * t * 4;
-        $('countOut').textContent = c;
-        $('ticketOut').textContent = money.format(t);
-        $('monthly').textContent = money.format(monthly);
-
-        var note = $('ratio');
-        if (monthly === 0) {
-          note.textContent = 'Move the sliders to see your estimate.';
-        } else if (monthly >= PRO_PRICE) {
-          var times = monthly / PRO_PRICE;
-          note.textContent = 'About ' + (times < 10 ? times.toFixed(1) : Math.round(times)) + '\u00D7 the cost of the Pro plan.';
-        } else {
-          note.textContent = 'Covers ' + Math.round((monthly / PRO_PRICE) * 100) + '% of the Pro plan cost.';
-        }
-      }
-      count.addEventListener('input', updateCalculator);
-      ticket.addEventListener('input', updateCalculator);
-      updateCalculator();
-
-      /* ---------- Plan selection ---------- */
-      var planButtons = document.querySelectorAll('[data-plan]');
-      var selected = { key: 'pro', label: 'Pro ($99/mo)', url: document.querySelector('[data-plan="pro"]').dataset.url };
-
-      function selectPlan(btn) {
-        selected = { key: btn.dataset.plan, label: btn.dataset.label, url: btn.dataset.url };
-        $('planLabel').textContent = selected.label;
-        document.querySelectorAll('[data-plan-card]').forEach(function (card) {
-          card.classList.toggle('is-selected', card.dataset.planCard === selected.key);
-        });
-        planButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
-      }
-
-      planButtons.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          selectPlan(btn);
-          $('onboarding').scrollIntoView();
-          $('clientName').focus({ preventScroll: true });
-        });
-      });
-
-      /* ---------- Lead capture, then Stripe checkout ---------- */
-      var form = $('leadForm');
-      var submitBtn = $('submitBtn');
-      var message = $('formMessage');
-
-      function setLoading(isLoading) {
-        submitBtn.disabled = isLoading;
-        $('submitText').textContent = isLoading ? 'Processing...' : 'Continue to payment';
-        $('submitIcon').style.display = isLoading ? 'none' : '';
-      }
-
-      function newLeadId() {
-        var raw = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random();
-        return raw.replace(/[^a-zA-Z0-9]/g, '').slice(0, 40);
-      }
-
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        message.textContent = '';
-
-        if (!form.checkValidity()) {
-          form.reportValidity();
-          return;
-        }
-        if (form.elements.fax.value) { return; } // spam trap filled: stop silently
-
-        setLoading(true);
-
-        var leadId = newLeadId();
-        var email = form.elements.email.value.trim();
-        var payload = {
-          leadId: leadId,
-          clientName: form.elements.clientName.value.trim(),
-          businessName: form.elements.businessName.value.trim(),
-          email: email,
-          serviceName: selected.label,
-          status: 'Unpurchased Lead',
-          submittedAt: new Date().toISOString()
-        };
-
-        var controller = new AbortController();
-        var timer = setTimeout(function () { controller.abort(); }, WEBHOOK_TIMEOUT_MS);
-
-        // A failed lead log should never block someone from paying, so we always continue to Stripe.
-        fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-          keepalive: true
-        })
-          .catch(function (err) { console.warn('Lead log failed:', err); })
-          .then(function () {
-            clearTimeout(timer);
-            var checkout = new URL(selected.url);
-            checkout.searchParams.set('prefilled_email', email);
-            checkout.searchParams.set('client_reference_id', leadId);
-            window.location.href = checkout.toString();
-          });
-      });
-
-      // If someone comes back from Stripe with the Back button, reset the button.
-      window.addEventListener('pageshow', function () { setLoading(false); });
-
-      /* ---------- Legal dialogs ---------- */
-      document.querySelectorAll('[data-open]').forEach(function (btn) {
-        btn.addEventListener('click', function () { $(btn.dataset.open).showModal(); });
-      });
-      document.querySelectorAll('dialog').forEach(function (dlg) {
-        dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); } });
-      });
-
-      /* ---------- Footer year ---------- */
-      $('year').textContent = new Date().getFullYear();
-
-      // Start with Pro highlighted, matching the default plan.
-      selectPlan(document.querySelector('[data-plan="pro"]'));
-    })();
-  </script>
-</body>
-</html>
