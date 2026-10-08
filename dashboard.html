@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Booked and Confirmed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
 
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 flex justify-between items-center">
+        <div class="font-bold text-xl text-indigo-600">Booked & Confirmed</div>
+        <div class="flex items-center gap-3">
+            <span class="text-sm text-slate-600">Logged in as <strong id="user-email" class="text-slate-900">client@example.com</strong></span>
+            <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">BC</div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-10">
+        
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-2xl p-8 mb-8 shadow-sm">
+            <h1 class="text-3xl font-extrabold mb-2">You're all set! 🎉</h1>
+            <p class="text-indigo-100 text-lg">Thank you for your purchase. Let's get your booking system up and running in under 2 minutes.</p>
+        </div>
+
+        <!-- Onboarding Progress Checklist -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">Setup Checklist</h2>
+                    <p class="text-sm text-slate-500">Complete these steps to unlock your full dashboard.</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-sm font-semibold text-indigo-600">1 of 3 completed</span>
+                </div>
+            </div>
+
+            <!-- Steps List -->
+            <div class="space-y-4">
+                
+                <!-- Step 1: Completed -->
+                <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">✓</div>
+                        <div>
+                            <h3 class="font-semibold text-slate-900 line-through">Account Created & Payment Verified</h3>
+                            <p class="text-sm text-slate-500">Stripe checkout successful.</p>
+                        </div>
+                    </div>
+                    <span class="text-xs font-medium bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">Done</span>
+                </div>
+
+                <!-- Step 2: Active / Current Focus -->
+                <div class="flex items-center justify-between p-4 rounded-xl bg-indigo-50/50 border-2 border-indigo-500 shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">2</div>
+                        <div>
+                            <h3 class="font-semibold text-slate-900">Connect Your Calendar</h3>
+                            <p class="text-sm text-slate-600">Sync Google Calendar or Outlook to prevent double bookings.</p>
+                        </div>
+                    </div>
+                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-4 py-2 rounded-lg text-sm transition">
+                        Connect Now
+                    </button>
+                </div>
+
+                <!-- Step 3: Upcoming -->
+                <div class="flex items-center justify-between p-4 rounded-xl bg-white border border-slate-200 opacity-75">
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold">3</div>
+                        <div>
+                            <h3 class="font-semibold text-slate-900">Share Your Booking Link</h3>
+                            <p class="text-sm text-slate-500">Copy your link and send it to your first client.</p>
+                        </div>
+                    </div>
+                    <button disabled class="bg-slate-100 text-slate-400 font-medium px-4 py-2 rounded-lg text-sm cursor-not-allowed">
+                        Locked
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="mt-8 text-center text-sm text-slate-500">
+            Need help? Check out our <a href="#" class="text-indigo-600 font-medium underline">Quick Start Guide</a> or contact support.
+        </div>
+
+    </main>
+
+</body>
+</html>
