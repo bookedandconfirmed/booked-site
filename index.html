@@ -124,15 +124,62 @@
     }
     .brand { display: flex; align-items: center; gap: .75rem; font-family: var(--font-mono); font-weight: 700; font-size: .9rem; text-transform: uppercase; letter-spacing: -.01em; }
     .brand-dot { width: .75rem; height: .75rem; border-radius: 50%; background: var(--green); }
+    
     .nav { display: flex; align-items: center; gap: 2rem; }
     .nav a:not(.nav-cta) { font-size: .85rem; color: #a3a3a3; transition: color .2s ease; font-weight: 500; }
     .nav a:not(.nav-cta):hover { color: #fff; }
     .nav-cta { background: #fff; color: #000; font-weight: 600; font-size: .85rem; padding: .6rem 1.25rem; border-radius: .5rem; transition: background-color .2s ease; }
     .nav-cta:hover { background: #e5e5e5; }
+
+    /* Mobile Hamburger Menu Styles */
+    .hamburger-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: .5rem;
+      padding: .5rem;
+      color: #fff;
+      cursor: pointer;
+    }
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: var(--header-h);
+      left: 0;
+      width: 100%;
+      background: rgba(15, 15, 15, 0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      flex-direction: column;
+      gap: 1.25rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      z-index: 99;
+    }
+    .mobile-menu.is-open {
+      display: flex;
+    }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: .25rem 0;
+      transition: color .2s ease;
+    }
+    .mobile-menu a:hover {
+      color: #fff;
+    }
+    .mobile-menu .nav-cta {
+      display: inline-block;
+      text-align: center;
+      margin-top: .5rem;
+      padding: .75rem;
+    }
+
     @media (max-width: 768px) {
       .site-header .wrap { padding-inline: 1.5rem; }
-      .nav-extra { display: none; }
-      .nav { gap: 1rem; }
+      .nav { display: none; } /* Hide desktop nav on mobile */
+      .hamburger-btn { display: inline-flex; align-items: center; justify-content: center; }
     }
 
     /* ---------- Hero ---------- */
@@ -185,6 +232,18 @@
     .result-value { display: block; font-family: var(--font-mono); font-size: clamp(2.2rem, 5vw, 2.75rem); font-weight: 900; color: var(--green-light); }
     .result-note { display: block; font-size: .85rem; color: var(--muted); margin-top: .5rem; }
     .calc-footnote { font-size: .75rem; color: var(--faint); margin-top: 1.25rem; }
+
+    /* Mobile adjustments specifically for Calculator compactness */
+    @media (max-width: 768px) {
+      .calc { padding: 1.5rem 1.25rem; }
+      .calc h2 { font-size: 1.35rem; padding-right: 0; margin-bottom: .5rem; }
+      .calc-tag { position: static; display: inline-block; margin-bottom: .5rem; }
+      .calc-intro { margin-bottom: 1.5rem; font-size: .85rem; }
+      .slider { margin-bottom: 1.25rem; }
+      .result { margin-top: 1.5rem; padding: 1.25rem; gap: 1rem; }
+      .result-value { font-size: 2rem; }
+      .calc-footnote { margin-top: .75rem; }
+    }
 
     /* ---------- How it works ---------- */
     .steps { display: grid; gap: 2rem; }
@@ -287,10 +346,11 @@
 </head>
 
 <body>
-  <!-- Icons -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-check" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3.2L13 4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   </svg>
 
   <a class="skip-link" href="#main">Skip to content</a>
@@ -301,17 +361,28 @@
         <span class="brand-dot" aria-hidden="true"></span>
         <span>Booked &amp; Confirmed</span>
       </a>
+
       <nav class="nav" aria-label="Main">
         <a href="#calculator">Calculator</a>
         <a class="nav-extra" href="#how-it-works">How it works</a>
         <a class="nav-extra" href="#faq">FAQ</a>
         <a class="nav-cta" href="#pricing">Get started</a>
       </nav>
+
+      <button class="hamburger-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg class="icon" id="hamburgerIcon" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+
+      <div class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
+        <a href="#calculator" class="mobile-nav-link">Calculator</a>
+        <a href="#how-it-works" class="mobile-nav-link">How it works</a>
+        <a href="#faq" class="mobile-nav-link">FAQ</a>
+        <a href="#pricing" class="nav-cta mobile-nav-link">Get started</a>
+      </div>
     </div>
   </header>
 
   <main id="main">
-    <!-- Hero -->
     <section class="hero" id="top">
       <div class="wrap wrap--md">
         <h1>Booked &amp; Confirmed makes sure your clients <span class="wavy">actually show up.</span></h1>
@@ -326,7 +397,6 @@
       </div>
     </section>
 
-    <!-- Calculator -->
     <section class="section" id="calculator" aria-labelledby="calc-title">
       <div class="wrap wrap--sm">
         <div class="card calc">
@@ -363,7 +433,6 @@
       </div>
     </section>
 
-    <!-- How it works -->
     <section class="section" id="how-it-works" aria-labelledby="how-title">
       <div class="wrap wrap--md">
         <div class="section-head">
@@ -390,7 +459,6 @@
       </div>
     </section>
 
-    <!-- Example conversation -->
     <section class="section" aria-labelledby="demo-title">
       <div class="wrap wrap--md demo">
         <div class="demo-copy">
@@ -426,7 +494,6 @@
       </div>
     </section>
 
-    <!-- FAQ -->
     <section class="section" id="faq" aria-labelledby="faq-title">
       <div class="wrap wrap--sm">
         <div class="section-head">
@@ -454,7 +521,6 @@
       </div>
     </section>
 
-    <!-- Founder note -->
     <section class="section" aria-label="A note from the founder">
       <div class="wrap wrap--sm">
         <figure class="card quote" style="margin:0">
@@ -472,7 +538,6 @@
       </div>
     </section>
 
-    <!-- Pricing -->
     <section class="section" id="pricing" aria-labelledby="pricing-title">
       <div class="wrap wrap--lg">
         <div class="section-head">
@@ -523,7 +588,6 @@
       </div>
     </section>
 
-    <!-- Sign-up form -->
     <section class="section" id="onboarding" aria-labelledby="signup-title">
       <div class="wrap wrap--form">
         <div class="card signup">
@@ -553,7 +617,6 @@
               </label>
             </div>
 
-            <!-- Spam trap: real visitors never see or fill this -->
             <div class="trap" aria-hidden="true">
               <label for="fax">Leave this field empty</label>
               <input type="text" id="fax" name="fax" tabindex="-1" autocomplete="off">
@@ -570,7 +633,6 @@
     </section>
   </main>
 
-  <!-- Legal dialogs -->
   <dialog id="dialog-tos" aria-labelledby="tos-title">
     <div class="dialog-body">
       <h3 id="tos-title">Terms of Service</h3>
@@ -590,7 +652,6 @@
     <form method="dialog" class="dialog-foot"><button class="btn">Close</button></form>
   </dialog>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-row">
       <div>&copy; 2026 Booked &amp; Confirmed. All rights reserved.</div>
@@ -605,6 +666,28 @@
   </footer>
 
   <script>
+    // Mobile Menu Toggle Script
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hamburgerIcon = document.getElementById('hamburgerIcon');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('is-open');
+      mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+      hamburgerIcon.innerHTML = isOpen 
+        ? '<use href="#i-close"/>' 
+        : '<use href="#i-menu"/>';
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('is-open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        hamburgerIcon.innerHTML = '<use href="#i-menu"/>';
+      });
+    });
+
     // Calculator Script
     const countInput = document.getElementById('count');
     const countOut = document.getElementById('countOut');
