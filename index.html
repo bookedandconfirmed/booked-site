@@ -137,11 +137,12 @@
 
     /* ---------- Hero ---------- */
     .hero { padding: 10rem 2rem 6rem; text-align: center; }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.75rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: clamp(2.3rem, 5vw, 4.2rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.15; margin-bottom: 1.5rem; white-space: nowrap; }
     .hero h1 .wavy { text-decoration: underline wavy var(--green); text-decoration-thickness: 3px; text-underline-offset: .4em; }
     .hero p { font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--muted); max-width: 46rem; margin: 0 auto 3rem; line-height: 1.6; }
     .hero-actions { display: flex; flex-direction: column; align-items: stretch; justify-content: center; gap: 1rem; }
     @media (min-width: 640px) { .hero-actions { flex-direction: row; align-items: center; } }
+    @media (max-width: 900px) { .hero h1 { white-space: normal; } }
 
     /* ---------- Example conversation ---------- */
     .demo { display: grid; gap: 3rem; align-items: center; }
@@ -256,6 +257,11 @@
     }
     .field input::placeholder { color: #525252; }
     .field input:focus { outline: none; border-color: var(--green); }
+    
+    .field-checkbox { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: 1.5rem; font-size: .85rem; color: var(--muted); line-height: 1.5; }
+    .field-checkbox input[type="checkbox"] { width: 1.1rem; height: 1.1rem; margin-top: .15rem; accent-color: var(--green); cursor: pointer; }
+    .field-checkbox a { color: var(--green-light); text-decoration: underline; text-underline-offset: 2px; }
+
     .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .signup .btn--green { padding: 1.1rem 1.5rem; border-radius: .75rem; margin-top: .75rem; width: 100%; font-size: .85rem; }
     .signup-hint { font-size: .8rem; color: var(--faint); text-align: center; margin-top: 1.25rem; }
@@ -327,22 +333,29 @@
         <div class="demo-copy">
           <span class="eyebrow eyebrow--green">See it in action</span>
           <h2 id="demo-title">Clients confirm with one reply.</h2>
-          <p>Each booking gets an automated text right away. Clients answer with a single letter to lock in their slot, and if someone cancels, the next person on your waitlist is offered the open time automatically.</p>
+          <p>Each booking gets an automated text right away. Clients answer with a single letter to lock in or reschedule, and if someone cancels, the next person on your waitlist is offered the open time automatically.</p>
         </div>
-        <div class="card thread" role="img" aria-label="Example text conversation showing appointment confirmation and automatic waitlist backfill upon cancellation.">
+        <div class="card thread" role="img" aria-label="Example text conversation showing confirmation, rescheduling, and automatic waitlist backfill upon cancellation.">
           <div class="thread-header-badge">
             <span>SMS Automation Preview</span>
             <span style="color: var(--green);">Live Simulation</span>
           </div>
           
-          <div class="thread-section-title">1. Automated Reminder &amp; Confirmation</div>
+          <div class="thread-section-title">1. Confirmation Workflow</div>
           <div class="bubble bubble--biz">Hi Jamie, you're booked at Example Studio on Thu at 2:30 PM. Reply C to confirm or R to reschedule.</div>
           <div class="bubble bubble--client">C</div>
           <div class="bubble bubble--biz">Confirmed! See you Thursday.</div>
 
+          <div class="thread-divider">Rescheduling Workflow</div>
+
+          <div class="thread-section-title">2. Reschedule Request</div>
+          <div class="bubble bubble--biz">Hi Jamie, you're booked at Example Studio on Thu at 2:30 PM. Reply C to confirm or R to reschedule.</div>
+          <div class="bubble bubble--client">R</div>
+          <div class="bubble bubble--biz">No problem! Click here to pick a new date: example.com/reschedule</div>
+
           <div class="thread-divider">Cancellation &amp; Waitlist Backfill</div>
 
-          <div class="thread-section-title">2. Instant Waitlist Recovery</div>
+          <div class="thread-section-title">3. Instant Waitlist Recovery</div>
           <div class="bubble bubble--biz">Good news, Thu at 2:30 PM just opened up. Reply Y to claim it.</div>
           <div class="bubble bubble--client">Y</div>
           <div class="bubble bubble--biz">You're booked! Calendar updated successfully.</div>
@@ -432,7 +445,7 @@
       </div>
     </section>
 
-    <!-- FAQ (Moved above Pricing to group selling/education points) -->
+    <!-- FAQ -->
     <section class="section" id="faq" aria-labelledby="faq-title">
       <div class="wrap wrap--sm">
         <div class="section-head">
@@ -460,7 +473,7 @@
       </div>
     </section>
 
-    <!-- Pricing (Purchase section) -->
+    <!-- Pricing -->
     <section class="section" id="pricing" aria-labelledby="pricing-title">
       <div class="wrap wrap--lg">
         <div class="section-head">
@@ -532,6 +545,13 @@
             <div class="field">
               <label for="email">Email address</label>
               <input type="email" id="email" name="email" autocomplete="email" required placeholder="avery@example.com">
+            </div>
+
+            <div class="field-checkbox">
+              <input type="checkbox" id="termsCheck" name="termsCheck" required>
+              <label for="termsCheck" style="display:inline; font-family:var(--font-sans); font-size:.85rem; text-transform:none; color:var(--muted);">
+                I agree to the <a href="#" onclick="document.getElementById('dialog-tos').showModal(); return false;">Terms of Service</a> and acknowledge the privacy practices.
+              </label>
             </div>
 
             <!-- Spam trap: real visitors never see or fill this -->
@@ -650,10 +670,17 @@
       const name = document.getElementById('clientName').value.trim();
       const biz = document.getElementById('businessName').value.trim();
       const email = document.getElementById('email').value.trim();
+      const termsChecked = document.getElementById('termsCheck').checked;
       const msg = document.getElementById('formMessage');
 
       if (!name || !biz || !email) {
         msg.textContent = 'Please fill out all required fields.';
+        msg.style.color = '#f87171';
+        return;
+      }
+
+      if (!termsChecked) {
+        msg.textContent = 'Please agree to the Terms of Service to continue.';
         msg.style.color = '#f87171';
         return;
       }
